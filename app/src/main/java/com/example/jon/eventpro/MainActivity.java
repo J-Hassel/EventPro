@@ -32,8 +32,13 @@ public class MainActivity extends AppCompatActivity {
         searchFragment = new SearchFragment();
         settingsFragment = new MoreFragment();
 
+        //start with the home fragment
         setFragment(homeFragment);
 
+        //disables nav bar animation when there is more than 3 items
+        BottomNavigationViewHelper.disableShiftMode(mainNav);
+
+        //set fragment for whichever item is selected
         mainNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener()
         {
             @Override
