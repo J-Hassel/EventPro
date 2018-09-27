@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
     private HomeFragment homeFragment;
     private SearchFragment searchFragment;
-    private SettingsFragment settingsFragment;
+    private MoreFragment settingsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         //fragments
         homeFragment = new HomeFragment();
         searchFragment = new SearchFragment();
-        settingsFragment = new SettingsFragment();
+        settingsFragment = new MoreFragment();
 
         setFragment(homeFragment);
 

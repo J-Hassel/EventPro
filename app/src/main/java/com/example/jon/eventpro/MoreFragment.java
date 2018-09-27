@@ -1,25 +1,25 @@
 package com.example.jon.eventpro;
 
 
-import android.graphics.Color;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.support.v7.widget.Toolbar;
 import android.widget.Button;
-import android.widget.Toast;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SearchFragment extends Fragment
+public class MoreFragment extends Fragment
 {
+    private Button btnSettings;
 
-    Button btn;
-
-    public SearchFragment()
+    public MoreFragment()
     {
         // Required empty public constructor
     }
@@ -30,16 +30,18 @@ public class SearchFragment extends Fragment
                              Bundle savedInstanceState)
     {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_search, container, false);
-        btn = view.findViewById(R.id.button1);
-        btn.setOnClickListener(new View.OnClickListener()
+        View view =  inflater.inflate(R.layout.fragment_more, container, false);
+
+        btnSettings = view.findViewById(R.id.button_settings);
+        btnSettings.setOnClickListener(new View.OnClickListener()
         {
-            @Override
             public void onClick(View v)
             {
-                Toast.makeText(getActivity(), "HELLO", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(getActivity(), SettingsActivity.class));
             }
         });
+
         return view;
     }
+
 }
