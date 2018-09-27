@@ -1,4 +1,4 @@
-package com.example.jon.eventpro;
+package com.example.jon.eventpro.fragments;
 
 
 import android.graphics.Color;
@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.Toast;
+
+import com.example.jon.eventpro.R;
 
 
 /**

@@ -1,4 +1,4 @@
-package com.example.jon.eventpro;
+package com.example.jon.eventpro.activities;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -8,6 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+
+import com.example.jon.eventpro.BottomNavigationViewHelper;
+import com.example.jon.eventpro.R;
+import com.example.jon.eventpro.fragments.HomeFragment;
+import com.example.jon.eventpro.fragments.MoreFragment;
+import com.example.jon.eventpro.fragments.SearchFragment;
 
 public class MainActivity extends AppCompatActivity {
 

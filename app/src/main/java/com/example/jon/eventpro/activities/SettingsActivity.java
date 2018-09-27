@@ -1,9 +1,11 @@
-package com.example.jon.eventpro;
+package com.example.jon.eventpro.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+
+import com.example.jon.eventpro.R;
 
 public class SettingsActivity extends AppCompatActivity
 {

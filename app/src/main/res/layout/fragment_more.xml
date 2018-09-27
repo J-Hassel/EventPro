@@ -5,10 +5,10 @@
     android:layout_height="match_parent"
     android:layout_marginTop="20dp"
     android:orientation="vertical"
-    tools:context=".MoreFragment">
+    tools:context=".fragments.MoreFragment">
 
     <Button
-        android:id="@+id/button7"
+        android:id="@+id/button_account"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginTop="10dp"
@@ -18,6 +18,36 @@
         android:gravity="left|center"
         android:paddingLeft="20dp"
         android:text="@string/text_account"
+        android:textAllCaps="false"
+        android:textColor="@color/gray"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/button_information"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginTop="10dp"
+        android:background="?android:attr/colorBackground"
+        android:drawableLeft="@drawable/ic_info"
+        android:drawablePadding="20dp"
+        android:gravity="left|center"
+        android:paddingLeft="20dp"
+        android:text="@string/text_information"
+        android:textAllCaps="false"
+        android:textColor="@color/gray"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/button_map"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginTop="10dp"
+        android:background="?android:attr/colorBackground"
+        android:drawableLeft="@drawable/ic_map"
+        android:drawablePadding="20dp"
+        android:gravity="left|center"
+        android:paddingLeft="20dp"
+        android:text="@string/text_map"
         android:textAllCaps="false"
         android:textColor="@color/gray"
         android:textSize="24sp" />
@@ -38,47 +68,18 @@
         android:textSize="24sp" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/button_login_register"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginTop="10dp"
         android:background="?android:attr/colorBackground"
-        android:drawableLeft="@drawable/ic_info"
+        android:drawableLeft="@drawable/ic_sign_in_register"
         android:drawablePadding="20dp"
         android:gravity="left|center"
         android:paddingLeft="20dp"
-        android:text="@string/text_information"
+        android:text="@string/text_login_register"
         android:textAllCaps="false"
         android:textColor="@color/gray"
         android:textSize="24sp" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_marginTop="10dp"
-        android:background="?android:attr/colorBackground"
-        android:drawableLeft="@drawable/ic_map"
-        android:drawablePadding="20dp"
-        android:gravity="left|center"
-        android:paddingLeft="20dp"
-        android:text="@string/text_map"
-        android:textAllCaps="false"
-        android:textColor="@color/gray"
-        android:textSize="24sp" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_marginTop="10dp"
-        android:background="?android:attr/colorBackground"
-        android:drawableLeft="@drawable/ic_location"
-        android:drawablePadding="20dp"
-        android:gravity="left|center"
-        android:paddingLeft="20dp"
-        android:text="@string/text_configure_location"
-        android:textAllCaps="false"
-        android:textColor="@color/gray"
-        android:textSize="24sp" />
 </LinearLayout>
