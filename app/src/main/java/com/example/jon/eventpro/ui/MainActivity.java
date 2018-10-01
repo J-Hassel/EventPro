@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
-import com.example.jon.eventpro.BottomNavigationViewHelper;
 import com.example.jon.eventpro.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -37,9 +36,6 @@ public class MainActivity extends AppCompatActivity {
 
         //start with the home fragment
         setFragment(homeFragment);
-
-        //disables nav bar animation when there is more than 3 items
-        BottomNavigationViewHelper.disableShiftMode(mainNav);
 
         //set fragment for whichever item is selected
         mainNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener()
