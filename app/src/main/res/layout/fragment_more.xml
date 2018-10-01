@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:layout_marginTop="20dp"
     android:orientation="vertical"
-    tools:context=".fragments.MoreFragment">
+    tools:context=".ui.MoreFragment">
 
     <Button
         android:id="@+id/button_profile"

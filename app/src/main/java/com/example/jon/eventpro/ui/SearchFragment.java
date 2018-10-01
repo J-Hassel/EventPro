@@ -1,4 +1,4 @@
-package com.example.jon.eventpro.fragments;
+package com.example.jon.eventpro.ui;
 
 
 import android.graphics.Color;

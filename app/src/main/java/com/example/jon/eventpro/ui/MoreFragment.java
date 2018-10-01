@@ -1,4 +1,4 @@
-package com.example.jon.eventpro.fragments;
+package com.example.jon.eventpro.ui;
 
 
 import android.content.Intent;
@@ -9,11 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.jon.eventpro.activities.ProfileActivity;
-import com.example.jon.eventpro.activities.InformationActivity;
-import com.example.jon.eventpro.activities.LoginRegisterActivity;
 import com.example.jon.eventpro.R;
-import com.example.jon.eventpro.activities.SettingsActivity;
 
 
 /**

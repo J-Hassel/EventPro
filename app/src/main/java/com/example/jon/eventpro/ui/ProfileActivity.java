@@ -1,4 +1,4 @@
-package com.example.jon.eventpro.activities;
+package com.example.jon.eventpro.ui;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

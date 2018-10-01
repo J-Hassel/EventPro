@@ -1,4 +1,4 @@
-package com.example.jon.eventpro.activities;
+package com.example.jon.eventpro.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.example.jon.eventpro.R;
 
-public class SettingsActivity extends AppCompatActivity
+public class InformationActivity extends AppCompatActivity
 {
     private Toolbar toolbar;
 
@@ -15,7 +15,7 @@ public class SettingsActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
+        setContentView(R.layout.activity_information);
 
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener()
@@ -26,7 +26,6 @@ public class SettingsActivity extends AppCompatActivity
                 onBackPressed();
             }
         });
-
 
     }
 }

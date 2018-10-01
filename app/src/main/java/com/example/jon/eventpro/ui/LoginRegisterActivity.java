@@ -1,4 +1,4 @@
-package com.example.jon.eventpro.activities;
+package com.example.jon.eventpro.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
