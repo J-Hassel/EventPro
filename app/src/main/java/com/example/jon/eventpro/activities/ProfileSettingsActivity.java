@@ -1,7 +1,8 @@
 package com.example.jon.eventpro.activities;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -15,6 +16,9 @@ public class ProfileSettingsActivity extends AppCompatActivity
 {
     private Toolbar toolbar;
     private CardView btnSelectPhoto;
+
+    public static final int PICK_IMAGE = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -38,8 +42,9 @@ public class ProfileSettingsActivity extends AppCompatActivity
         {
             @Override
             public void onClick(View v)
-            {
-                Toast.makeText(ProfileSettingsActivity.this, "add photo clicked", Toast.LENGTH_SHORT).show();
+            {   //opens the gallery app when btnSelectPhoto is clicked
+                Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, PICK_IMAGE);
             }
         });
     }
@@ -58,4 +63,15 @@ public class ProfileSettingsActivity extends AppCompatActivity
         finish();
         return true;
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        //what to do with image
+    }
+
+//    public void processImage()
+//    { //crops image so it is a square
+//
+//    }
 }
