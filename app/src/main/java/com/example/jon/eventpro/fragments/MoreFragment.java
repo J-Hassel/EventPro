@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.jon.eventpro.activities.ProfileActivity;
+import com.example.jon.eventpro.activities.InformationActivity;
 import com.example.jon.eventpro.activities.LoginRegisterActivity;
 import com.example.jon.eventpro.R;
 import com.example.jon.eventpro.activities.SettingsActivity;
@@ -19,7 +21,7 @@ import com.example.jon.eventpro.activities.SettingsActivity;
  */
 public class MoreFragment extends Fragment
 {
-    private Button btnSettings, btnAccount, btnLoginRegister;
+    private Button btnProfile, btnLoginRegister, btnMap, btnInformation, btnSettings;
 
     public MoreFragment()
     {
@@ -34,23 +36,15 @@ public class MoreFragment extends Fragment
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_more, container, false);
 
-        btnSettings = view.findViewById(R.id.button_settings);
-        btnSettings.setOnClickListener(new View.OnClickListener()
+
+        btnProfile = view.findViewById(R.id.button_profile);
+        btnProfile.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
             {
-                startActivity(new Intent(getActivity(), SettingsActivity.class));
+                startActivity(new Intent(getActivity(), ProfileActivity.class));
             }
         });
-
-//        btnAccount = view.findViewById(R.id.button_account);
-//        btnAccount.setOnClickListener(new View.OnClickListener()
-//        {
-//            public void onClick(View v)
-//            {
-//                startActivity(new Intent(getActivity(), AccountActivity.class));
-//            }
-//        });
 
         btnLoginRegister = view.findViewById(R.id.button_login_register);
         btnLoginRegister.setOnClickListener(new View.OnClickListener()
@@ -60,6 +54,34 @@ public class MoreFragment extends Fragment
                 startActivity(new Intent(getActivity(), LoginRegisterActivity.class));
             }
         });
+
+//        btnMap = view.findViewById(R.id.button_map);
+//        btnMap.setOnClickListener(new View.OnClickListener()
+//        {
+//            public void onClick(View v)
+//            {
+//                startActivity(new Intent(getActivity(), MapActivity.class));
+//            }
+//        });
+
+        btnInformation = view.findViewById(R.id.button_information);
+        btnInformation.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                startActivity(new Intent(getActivity(), InformationActivity.class));
+            }
+        });
+
+        btnSettings = view.findViewById(R.id.button_settings);
+        btnSettings.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                startActivity(new Intent(getActivity(), SettingsActivity.class));
+            }
+        });
+
 
         return view;
     }

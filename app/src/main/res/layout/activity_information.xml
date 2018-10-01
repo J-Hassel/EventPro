@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".activities.SettingsActivity">
 
     <android.support.v7.widget.Toolbar
@@ -15,7 +14,6 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:navigationIcon="@drawable/ic_arrow_back"
-        app:title="@string/text_settings"
+        app:title="@string/text_information"
         app:titleTextColor="?android:attr/colorBackground" />
-
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
