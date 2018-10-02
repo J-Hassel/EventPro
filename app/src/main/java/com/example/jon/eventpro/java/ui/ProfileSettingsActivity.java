@@ -1,4 +1,4 @@
-package com.example.jon.eventpro.ui;
+package com.example.jon.eventpro.java.ui;
 
 import android.content.Intent;
 import android.graphics.ColorFilter;
@@ -6,7 +6,6 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;

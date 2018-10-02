@@ -1,4 +1,4 @@
-package com.example.jon.eventpro.ui;
+package com.example.jon.eventpro.java.ui;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
