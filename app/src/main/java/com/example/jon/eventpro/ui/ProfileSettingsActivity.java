@@ -1,6 +1,9 @@
 package com.example.jon.eventpro.ui;
 
 import android.content.Intent;
+import android.graphics.ColorFilter;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -12,10 +15,12 @@ import android.widget.Toast;
 
 import com.example.jon.eventpro.R;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class ProfileSettingsActivity extends AppCompatActivity
 {
     private Toolbar toolbar;
-    private CardView btnSelectPhoto;
+    private CircleImageView btnSelectImage;
 
     public static final int PICK_IMAGE = 1;
 
@@ -37,16 +42,21 @@ public class ProfileSettingsActivity extends AppCompatActivity
             }
         });
 
-        btnSelectPhoto = findViewById(R.id.button_select_photo);
-        btnSelectPhoto.setOnClickListener(new View.OnClickListener()
+        btnSelectImage = findViewById(R.id.button_select_image);
+        btnSelectImage.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
-            {   //opens the gallery app when btnSelectPhoto is clicked
+            {   //opens the gallery app when btnSelectImage is clicked
                 Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent, PICK_IMAGE);
             }
         });
+
+        //adding tint to btnSelectImage
+        int color = getResources().getColor(R.color.gray);
+        ColorFilter cf = new PorterDuffColorFilter(color, PorterDuff.Mode.MULTIPLY);
+        btnSelectImage.setColorFilter(cf);
     }
 
     public boolean onCreateOptionsMenu(Menu menu)

@@ -28,33 +28,16 @@
             android:focusableInTouchMode="true"
             android:orientation="vertical" >
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/button_select_photo"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/button_select_image"
                 android:layout_width="200dp"
-                android:layout_height="202dp"
+                android:layout_height="200dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:clickable="true"
-                android:elevation="12dp"
-                android:innerRadius="0dp"
-                android:shape="ring"
-                android:thicknessRatio="1.9"
-                app:cardCornerRadius="100dp">
-
-                <ImageView
-                    android:id="@+id/image_profile_picture"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_gravity="center"
-                    android:contentDescription="profile picture"
-                    android:foreground="@drawable/ic_add_photo"
-                    android:foregroundGravity="center"
-                    android:tint="@color/gray_tint"
-                    app:srcCompat="@drawable/test_profile_pic" />
-
-            </android.support.v7.widget.CardView>
+                android:foreground="@drawable/ic_add_photo"
+                android:foregroundGravity="center"
+                android:src="@drawable/test_profile_pic" />
 
             <TextView
                 android:layout_width="wrap_content"
