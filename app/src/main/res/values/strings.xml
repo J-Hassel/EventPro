@@ -11,13 +11,16 @@
     <string name="action_login">Log in</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">Password must be at least 8 characters long</string>
+    <string name="error_password_mismatch">The passwords do not match</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
     <string name="action_register">Register</string>
-    <string name="text_login_register">Log In / Register</string>
+    <string name="text_login">Log In</string>
     <string name="text_profile_settings">Profile Settings</string>
     <string name="text_name">Name</string>
     <string name="text_city">City</string>
     <string name="text_location">Location</string>
     <string name="action_done">Done</string>
+    <string name="prompt_confirm_password">Confirm Password</string>
+    <string name="title_register">Register</string>
 </resources>

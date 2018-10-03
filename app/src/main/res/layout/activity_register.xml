@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".java.ui.LoginRegisterActivity">
+    tools:context=".java.ui.LoginActivity">
 
     <!-- Login progress -->
 
@@ -18,7 +18,7 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:navigationIcon="@drawable/ic_arrow_back"
-        app:title="@string/text_login_register"
+        app:title="@string/title_register"
         app:titleTextColor="?android:attr/colorBackground" />
 
     <ScrollView
@@ -51,7 +51,7 @@
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
                 <EditText
                     android:id="@+id/password"
@@ -68,31 +68,36 @@
 
             </android.support.design.widget.TextInputLayout>
 
-            <LinearLayout
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/confirm_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:hint="@string/prompt_confirm_password"
+                    android:imeActionId="6"
+                    android:imeActionLabel="@string/action_login"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <Button
+                android:id="@+id/button_register"
+                style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_margin="16dp"
+                android:layout_weight="1"
+                android:text="@string/action_register"
+                android:textStyle="bold" />
 
-                <Button
-                    android:id="@+id/button_login"
-                    style="?android:textAppearanceSmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:layout_weight="1"
-                    android:text="@string/action_login"
-                    android:textStyle="bold" />
-
-                <Button
-                    android:id="@+id/button_register"
-                    style="?android:textAppearanceSmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:layout_weight="1"
-                    android:text="@string/action_register"
-                    android:textStyle="bold" />
-            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

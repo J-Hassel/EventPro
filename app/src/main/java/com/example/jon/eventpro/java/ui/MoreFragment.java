@@ -47,7 +47,7 @@ public class MoreFragment extends Fragment
         {
             public void onClick(View v)
             {
-                startActivity(new Intent(getActivity(), LoginRegisterActivity.class));
+                startActivity(new Intent(getActivity(), LoginActivity.class));
             }
         });
 

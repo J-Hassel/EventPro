@@ -18,11 +18,12 @@
         </activity>
         <activity android:name=".java.ui.SettingsActivity" />
         <activity
-            android:name=".java.ui.LoginRegisterActivity"
-            android:label="@string/text_login_register" />
+            android:name=".java.ui.LoginActivity"
+            android:label="@string/text_login" />
         <activity android:name=".java.ui.InformationActivity" />
         <activity android:name=".java.ui.ProfileActivity" />
-        <activity android:name=".java.ui.ProfileSettingsActivity"></activity>
+        <activity android:name=".java.ui.ProfileSettingsActivity" />
+        <activity android:name=".java.ui.RegisterActivity"></activity>
     </application>
 
 </manifest>
