@@ -15,13 +15,11 @@ import android.widget.Toast;
 
 import com.example.jon.eventpro.R;
 
-/**
- * A login screen that offers login via email/password.
- */
+
 public class RegisterActivity extends AppCompatActivity
 {
     // UI references.
-    private EditText emailView, passwordView, confirmPasswordView;
+    private EditText nameView, emailView, passwordView, confirmPasswordView;
     private Toolbar toolbar;
 
     @Override
@@ -41,11 +39,12 @@ public class RegisterActivity extends AppCompatActivity
             }
         });
 
-        // Set up the login form.
+        // Set up the register form.
+        nameView = findViewById(R.id.name);
         emailView = findViewById(R.id.email);
         passwordView = findViewById(R.id.password);
 
-        // Clicking done will attempt login
+        // Clicking done will attempt registration
         confirmPasswordView = findViewById(R.id.confirm_password);
         confirmPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener()
         {
@@ -75,12 +74,14 @@ public class RegisterActivity extends AppCompatActivity
     private void attemptRegister()
     {
         // Reset errors.
+        nameView.setError(null);
         emailView.setError(null);
         passwordView.setError(null);
         confirmPasswordView.setError(null);
 
 
-        // Store values at the time of the login attempt.
+        // Store values at the time of the registration attempt.
+        String name = nameView.getText().toString();
         String email = emailView.getText().toString();
         String password = passwordView.getText().toString();
         String confirmPassword = confirmPasswordView.getText().toString();
@@ -117,8 +118,7 @@ public class RegisterActivity extends AppCompatActivity
             cancel = true;
         }
 
-        // Check if email already exists
-        //
+        // TODO: Check if email already exists
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(email))
@@ -134,6 +134,20 @@ public class RegisterActivity extends AppCompatActivity
             cancel = true;
         }
 
+        // Check for a valid name
+        if (TextUtils.isEmpty(name))
+        {
+            nameView.setError(getString(R.string.error_field_required));
+            focusView = nameView;
+            cancel = true;
+        }
+        else if (!isNameValid(name))
+        {
+            nameView.setError(getString(R.string.error_invalid_name));
+            focusView = nameView;
+            cancel = true;
+        }
+
         if (cancel)
         {
             // There was an error; don't attempt register and focus the first form field with an error.
@@ -144,6 +158,11 @@ public class RegisterActivity extends AppCompatActivity
             Toast.makeText(getApplicationContext(), "successful register", Toast.LENGTH_LONG).show();
             finish();
         }
+    }
+
+    private boolean isNameValid(String name)
+    {
+        return name.matches("[a-zA-Z]+ ?[a-zA-Z]*");
     }
 
 

@@ -17,7 +17,7 @@ import com.example.jon.eventpro.R;
  */
 public class MoreFragment extends Fragment
 {
-    private Button btnProfile, btnLoginRegister, btnMap, btnInformation, btnSettings;
+    private Button btnProfile, btnLogin, btnMap, btnInformation, btnSettings;
 
     public MoreFragment()
     {
@@ -37,13 +37,13 @@ public class MoreFragment extends Fragment
         btnProfile.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
-            {
+            {   //TODO: check is user is logged in; if not launch login activity
                 startActivity(new Intent(getActivity(), ProfileActivity.class));
             }
         });
 
-        btnLoginRegister = view.findViewById(R.id.button_login_register);
-        btnLoginRegister.setOnClickListener(new View.OnClickListener()
+        btnLogin = view.findViewById(R.id.button_login);
+        btnLogin.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
             {
