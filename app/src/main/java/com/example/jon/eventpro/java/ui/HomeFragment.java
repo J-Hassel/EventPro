@@ -46,11 +46,15 @@ public class HomeFragment extends Fragment
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
 
         //setting up recyclerView
-        initRecyclerView();
         recyclerView = view.findViewById(R.id.recycler_view);
         adapter = new RecyclerViewAdapter(listEvent, getContext());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        if(adapter.getItemCount() == 0)
+            initRecyclerView();
+
+
 
         return view;
     }

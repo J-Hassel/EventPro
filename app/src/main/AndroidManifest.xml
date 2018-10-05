@@ -23,7 +23,8 @@
         <activity android:name=".java.ui.InformationActivity" />
         <activity android:name=".java.ui.ProfileActivity" />
         <activity android:name=".java.ui.ProfileSettingsActivity" />
-        <activity android:name=".java.ui.RegisterActivity"></activity>
+        <activity android:name=".java.ui.RegisterActivity" />
+        <activity android:name=".java.ui.EventActivity"></activity>
     </application>
 
 </manifest>

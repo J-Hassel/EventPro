@@ -1,6 +1,7 @@
 package com.example.jon.eventpro.java;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jon.eventpro.R;
+import com.example.jon.eventpro.java.ui.EventActivity;
 
 import java.util.ArrayList;
 
@@ -50,7 +52,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             @Override
             public void onClick(View v)
             {
-                Toast.makeText(mContext, viewHolder.text.getText(), Toast.LENGTH_SHORT).show();
+                mContext.startActivity(new Intent(mContext, EventActivity.class));
             }
         });
 
