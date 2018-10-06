@@ -20,8 +20,9 @@
     <string name="text_profile_settings">Profile Settings</string>
     <string name="text_name">Name</string>
     <string name="text_city">City</string>
-    <string name="text_location">Location</string>
     <string name="action_done">Done</string>
     <string name="prompt_confirm_password">Confirm Password</string>
     <string name="title_register">Register</string>
+    <string name="text_location">Location</string>
+    <string name="text_about">About</string>
 </resources>
