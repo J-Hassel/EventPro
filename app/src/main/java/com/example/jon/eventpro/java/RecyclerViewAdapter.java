@@ -45,7 +45,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int position)
     {
         viewHolder.image.setImageResource(listEvent.get(position).getImageID());
-        viewHolder.text.setText(listEvent.get(position).getDescription());
+        viewHolder.text.setText(listEvent.get(position).getAbout());
         
         viewHolder.parentLayout.setOnClickListener(new View.OnClickListener()
         {

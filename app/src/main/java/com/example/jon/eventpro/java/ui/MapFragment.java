@@ -1,6 +1,9 @@
 package com.example.jon.eventpro.java.ui;
 
 
+import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -17,6 +20,9 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.io.IOException;
+import java.util.List;
 
 
 public class MapFragment extends Fragment implements OnMapReadyCallback
@@ -59,16 +65,42 @@ public class MapFragment extends Fragment implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap)
     {
         MapsInitializer.initialize(getContext());
+//
+//        mGoogleMap = googleMap;
 
-        mGoogleMap = googleMap;
-        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        // Moving camera to location
+        CameraPosition Location = CameraPosition.builder().target(getLocationFromAddress(getContext(),"459 W College Avenue, Tallahassee, FL 32301" )).zoom(14).build();
+        googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(Location));
 
-        CameraPosition Liberty = CameraPosition.builder().target(new LatLng(40.689247, -74.044502)).zoom(16).bearing(0).build();
-        googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(Liberty));
-        mGoogleMap.getUiSettings().setAllGesturesEnabled(false);
+        // Marker set on address
+        googleMap.addMarker(new MarkerOptions().position(getLocationFromAddress(getContext(),"459 W College Avenue, Tallahassee, FL 32301" )));
 
-        googleMap.addMarker(new MarkerOptions().position(new LatLng(40.689247, -74.044502)));
+        // Making it so user cannot interact with the map
+        googleMap.getUiSettings().setAllGesturesEnabled(false);
+    }
 
+    /* Reference: https://stackoverflow.com/questions/3574644/how-can-i-find-the-latitude-and-longitude-from-address */
+    public LatLng getLocationFromAddress(Context context, String strAddress) {
 
+        Geocoder coder = new Geocoder(context);
+        List<Address> address;
+        LatLng point = null;
+
+        try {
+            // May throw an IOException
+            address = coder.getFromLocationName(strAddress, 5);
+            if (address == null) {
+                return null;
+            }
+
+            Address location = address.get(0);
+            point = new LatLng(location.getLatitude(), location.getLongitude() );
+
+        } catch (IOException ex) {
+
+            ex.printStackTrace();
+        }
+
+        return point;
     }
 }

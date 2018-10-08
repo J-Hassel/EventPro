@@ -3,17 +3,17 @@ package com.example.jon.eventpro.java;
 public class Event
 {
     private int imageID;
-    private String description;
+    private String title, date, time, location, address, price, about;
 
     public Event()
     {
 
     }
 
-    public Event(int imageID, String description)
+    public Event(int imageID, String about)
     {
         this.imageID = imageID;
-        this.description = description;
+        this.about = about;
     }
 
     public int getImageID()
@@ -21,8 +21,13 @@ public class Event
         return imageID;
     }
 
-    public String getDescription()
+    public String getAbout()
     {
-        return description;
+        return about;
     }
+
+//    public String getAddress()
+//    {
+//        return address;
+//    }
 }
