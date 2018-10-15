@@ -6,19 +6,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="java.ui.HomeFragment">
+    tools:context=".java.ui.CreateEventActivity">
 
     <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbarHeight"
         android:background="@color/colorPrimary"
         android:minHeight="@dimen/toolbarHeight"
         android:theme="?attr/actionBarTheme"
-        app:title="Upcoming Events"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:title="@string/text_create_event"
         app:titleTextColor="@color/white">
 
         <ImageButton
-            android:id="@+id/button_create_event"
+            android:id="@+id/button_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
@@ -26,16 +28,7 @@
             android:background="@android:color/transparent"
             android:clickable="true"
             android:contentDescription="TODO"
-            android:src="@drawable/ic_create_event" />
-
+            android:src="@drawable/ic_save" />
     </android.support.v7.widget.Toolbar>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".java.ui.HomeFragment">
-
-    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".java.ui.SettingsActivity">
+    android:orientation="vertical"
+    tools:context=".java.ui.InformationActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -16,4 +18,4 @@
         app:navigationIcon="@drawable/ic_arrow_back"
         app:title="@string/text_information"
         app:titleTextColor="?android:attr/colorBackground" />
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

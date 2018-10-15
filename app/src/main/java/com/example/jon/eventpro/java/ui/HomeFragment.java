@@ -1,6 +1,7 @@
 package com.example.jon.eventpro.java.ui;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.jon.eventpro.R;
@@ -28,6 +30,7 @@ public class HomeFragment extends Fragment
     private RecyclerView recyclerView;
     private RecyclerViewAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
+    private ImageButton btnCreate;
 
     private ArrayList<Event> listEvent = new ArrayList<Event>();
 
@@ -42,6 +45,16 @@ public class HomeFragment extends Fragment
     {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
+
+        btnCreate = view.findViewById(R.id.button_create_event);
+        btnCreate.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                startActivity(new Intent(getActivity(), CreateEventActivity.class));
+            }
+        });
 
         //setting up recyclerView
         recyclerView = view.findViewById(R.id.recycler_view);
