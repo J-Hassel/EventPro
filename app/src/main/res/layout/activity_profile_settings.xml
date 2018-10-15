@@ -74,6 +74,24 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text="Tallahassee" />
+
+            <Switch
+                android:id="@+id/switch_notifications"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="50dp"
+                android:switchPadding="50dp"
+                android:text="Enable Notifications" />
+
+            <Switch
+                android:id="@+id/switch_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:switchPadding="75dp"
+                android:text="Enable Location" />
         </LinearLayout>
     </ScrollView>
 

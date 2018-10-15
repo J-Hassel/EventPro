@@ -4,15 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.jon.eventpro.R;
 import com.example.jon.eventpro.java.ui.EventActivity;
@@ -23,13 +20,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 {
     private static final String TAG = "RecyclerViewAdapter";
 
-    private ArrayList<Event> listEvent = new ArrayList<Event>();
-    private Context mContext;
+    private ArrayList<Event> listEvent = new ArrayList<>();
+    private Context context;
 
     public RecyclerViewAdapter(ArrayList<Event> listEvent, Context mContext)
     {
         this.listEvent = listEvent;
-        this.mContext = mContext;
+        this.context = mContext;
     }
 
     @NonNull
@@ -45,14 +42,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int position)
     {
         viewHolder.image.setImageResource(listEvent.get(position).getImageID());
-        viewHolder.text.setText(listEvent.get(position).getAbout());
+        viewHolder.text.setText(listEvent.get(position).getTitle());
         
         viewHolder.parentLayout.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                mContext.startActivity(new Intent(mContext, EventActivity.class));
+                context.startActivity(new Intent(context, EventActivity.class));
             }
         });
 
@@ -63,8 +60,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     {
         return listEvent.size();
     }
-
-
 
     public class ViewHolder extends RecyclerView.ViewHolder
     {

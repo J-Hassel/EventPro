@@ -35,7 +35,12 @@ public class MoreFragment extends Fragment
         {
             public void onClick(View v)
             {   //TODO: check is user is logged in; if not launch login activity
-                startActivity(new Intent(getActivity(), ProfileActivity.class));
+//                if(user.isLoggedIn())
+//                {
+                    startActivity(new Intent(getActivity(), ProfileActivity.class));
+//                }
+//                else
+//                    startActivity(new Intent(getActivity(), LoginActivity.class));
             }
         });
 

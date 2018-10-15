@@ -5,15 +5,14 @@ public class Event
     private int imageID;
     private String title, date, time, location, address, price, about;
 
-    public Event()
-    {
 
-    }
+    //TODO: Constructor
 
-    public Event(int imageID, String about)
+
+    public Event(int imageID, String title)
     {
         this.imageID = imageID;
-        this.about = about;
+        this.title = title;
     }
 
     public int getImageID()
@@ -21,13 +20,79 @@ public class Event
         return imageID;
     }
 
+    public void setImageID(int imageID)
+    {
+        this.imageID = imageID;
+    }
+
+    public String getTitle()
+    {
+        return title;
+    }
+
+    public void setTitle(String title)
+    {
+        this.title = title;
+    }
+
+    public String getDate()
+    {
+        return date;
+    }
+
+    public void setDate(String date)
+    {
+        this.date = date;
+    }
+
+    public String getTime()
+    {
+        return time;
+    }
+
+    public void setTime(String time)
+    {
+        this.time = time;
+    }
+
+    public String getLocation()
+    {
+        return location;
+    }
+
+    public void setLocation(String location)
+    {
+        this.location = location;
+    }
+
+    public String getAddress()
+    {
+        return address;
+    }
+
+    public void setAddress(String address)
+    {
+        this.address = address;
+    }
+
+    public String getPrice()
+    {
+        return price;
+    }
+
+    public void setPrice(String price)
+    {
+        this.price = price;
+    }
+
     public String getAbout()
     {
         return about;
     }
 
-//    public String getAddress()
-//    {
-//        return address;
-//    }
+    public void setAbout(String about)
+    {
+        this.about = about;
+    }
+
 }

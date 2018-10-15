@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.jon.eventpro.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -68,15 +69,25 @@ public class MapFragment extends Fragment implements OnMapReadyCallback
 //
 //        mGoogleMap = googleMap;
 
-        // Moving camera to location
-        CameraPosition Location = CameraPosition.builder().target(getLocationFromAddress(getContext(),"459 W College Avenue, Tallahassee, FL 32301" )).zoom(14).build();
-        googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(Location));
+        try
+        {
+            // Moving camera to location
+            CameraPosition Location = CameraPosition.builder().target(getLocationFromAddress(getContext(),"459 W College Avenue, Tallahassee, FL 32301" )).zoom(14).build();
+            googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(Location));
 
-        // Marker set on address
-        googleMap.addMarker(new MarkerOptions().position(getLocationFromAddress(getContext(),"459 W College Avenue, Tallahassee, FL 32301" )));
+            // Marker set on address
+            googleMap.addMarker(new MarkerOptions().position(getLocationFromAddress(getContext(),"459 W College Avenue, Tallahassee, FL 32301" )));
+
+
+        }
+        catch(Exception e)
+        {
+            Toast.makeText(getContext(), "unable to load map", Toast.LENGTH_SHORT).show();
+        }
 
         // Making it so user cannot interact with the map
         googleMap.getUiSettings().setAllGesturesEnabled(false);
+
     }
 
     /* Reference: https://stackoverflow.com/questions/3574644/how-can-i-find-the-latitude-and-longitude-from-address */
