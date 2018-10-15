@@ -1,24 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="match_parent"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
-
-    <TextView
+<!--TODO: change status bar color-->
+    <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="UPCOMING EVENTS"
-        android:textSize="24sp" />
+        android:layout_height="@dimen/toolbarHeight"
+        android:background="@color/colorPrimaryDark"
+        android:minHeight="@dimen/toolbarHeight"
+        android:theme="?attr/actionBarTheme"
+        app:title="Upcoming Events"
+        app:titleTextColor="@color/white">
+
+        <ImageButton
+            android:id="@+id/button_create_event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="20dp"
+            android:background="@android:color/transparent"
+            android:clickable="true"
+            android:contentDescription="TODO"
+            android:src="@drawable/ic_create_event" />
+
+    </android.support.v7.widget.Toolbar>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="30dp"
-        tools:context=".java.ui.HomeFragment" />
+        tools:context=".java.ui.HomeFragment">
+
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

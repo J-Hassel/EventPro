@@ -42,7 +42,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int position)
     {
         viewHolder.image.setImageResource(listEvent.get(position).getImageID());
-        viewHolder.text.setText(listEvent.get(position).getTitle());
+        viewHolder.title.setText(listEvent.get(position).getTitle());
+        viewHolder.date.setText(listEvent.get(position).getDate());
+        viewHolder.location.setText(listEvent.get(position).getLocation());
         
         viewHolder.parentLayout.setOnClickListener(new View.OnClickListener()
         {
@@ -65,14 +67,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     {
 
         ImageView image;
-        TextView text;
+        TextView title, date, location;
         LinearLayout parentLayout;
 
         public ViewHolder(@NonNull View itemView)
         {
             super(itemView);
-            image = itemView.findViewById(R.id.image);
-            text = itemView.findViewById(R.id.text);
+            image = itemView.findViewById(R.id.event_item_image);
+            title = itemView.findViewById(R.id.event_item_title);
+            date = itemView.findViewById(R.id.event_item_date);
+            location = itemView.findViewById(R.id.event_item_location);
             parentLayout = itemView.findViewById(R.id.parent_layout);
         }
     }

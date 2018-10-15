@@ -14,7 +14,7 @@
         app:cardCornerRadius="10dp">
 
         <ImageView
-            android:id="@+id/image"
+            android:id="@+id/event_item_image"
             android:layout_width="match_parent"
             android:layout_height="180dp"
             android:scaleType="centerCrop"
@@ -29,14 +29,14 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/tv_event_date"
+            android:id="@+id/event_item_date"
             android:layout_width="30dp"
             android:layout_height="32dp"
             android:text="OCT 5"
             android:textAlignment="center" />
 
         <TextView
-            android:id="@+id/tv_event_title"
+            android:id="@+id/event_item_title"
             android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:layout_marginStart="5dp"
@@ -49,7 +49,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/tv_event_location"
+        android:id="@+id/event_item_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"

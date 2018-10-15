@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.jon.eventpro.R;
 import com.example.jon.eventpro.java.Event;
@@ -60,15 +61,17 @@ public class HomeFragment extends Fragment
     {
         Log.d(TAG, "initRecyclerView: init recyclerview");
 
-        listEvent.add(new Event(R.drawable.testing2, "EVENT 1 TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE"));
-        listEvent.add(new Event(R.drawable.testing2, "EVENT 2 TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE"));
-        listEvent.add(new Event(R.drawable.testing2, "EVENT 3 TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE"));
-        listEvent.add(new Event(R.drawable.testing2, "EVENT 4 TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE"));
-        listEvent.add(new Event(R.drawable.testing2, "EVENT 5 TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE"));
-        listEvent.add(new Event(R.drawable.testing2, "EVENT 6 TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE"));
-        listEvent.add(new Event(R.drawable.testing2, "EVENT 7 TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE"));
-        listEvent.add(new Event(R.drawable.testing2, "EVENT 8 TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE"));
-        listEvent.add(new Event(R.drawable.testing2, "EVENT 9 TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE"));
+        listEvent.add(new Event(R.drawable.testing2, "EVENT 1 TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE", "JAN 13", "Boston"));
+        listEvent.add(new Event(R.drawable.testing2, "EVENT 2 TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE", "OCT 5", "New York"));
+        listEvent.add(new Event(R.drawable.testing2, "EVENT 3 TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE", "APR 5", "Orange County"));
+        listEvent.add(new Event(R.drawable.testing2, "EVENT 4 TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE", "MAR 29", "Charleston"));
+        listEvent.add(new Event(R.drawable.testing2, "EVENT 5 TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE", "FEB 15", "Tallahassee"));
+        listEvent.add(new Event(R.drawable.testing2, "EVENT 6 TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE", "JUN 5", "Paris"));
+        listEvent.add(new Event(R.drawable.testing2, "EVENT 7 TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE", "JUL 9", "Tampa"));
+        listEvent.add(new Event(R.drawable.testing2, "EVENT 8 TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE", "MAR 5", "Salt Lake City"));
+        listEvent.add(new Event(R.drawable.testing2, "EVENT 9 TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE", "MAY 5", "Jupiter"));
+        listEvent.add(new Event(R.drawable.testing2, "EVENT 10 TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE", "OCT 25", "Miami"));
+        listEvent.add(new Event(R.drawable.testing2, "EVENT 11 TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE TITLE", "NOV 5", "Palm Beach"));
     }
 
 }

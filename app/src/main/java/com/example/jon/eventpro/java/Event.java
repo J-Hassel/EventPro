@@ -9,10 +9,12 @@ public class Event
     //TODO: Constructor
 
 
-    public Event(int imageID, String title)
+    public Event(int imageID, String title, String date, String location)
     {
         this.imageID = imageID;
         this.title = title;
+        this.date = date;
+        this.location = location;
     }
 
     public int getImageID()
