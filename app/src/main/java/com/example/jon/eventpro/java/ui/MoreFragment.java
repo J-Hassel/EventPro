@@ -71,16 +71,6 @@ public class MoreFragment extends Fragment
             }
         });
 
-        btnSettings = view.findViewById(R.id.button_settings);
-        btnSettings.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
-                startActivity(new Intent(getActivity(), SettingsActivity.class));
-            }
-        });
-
-
         return view;
     }
 
