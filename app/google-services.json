@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "893331215689",
+    "firebase_url": "https://plucky-shore-218700.firebaseio.com",
+    "project_id": "plucky-shore-218700",
+    "storage_bucket": "plucky-shore-218700.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:893331215689:android:cb4d600e284d2aa6",
+        "android_client_info": {
+          "package_name": "com.example.jon.eventpro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "893331215689-3eh7rlb2oqoac53tr7c96gtgf0fm4aaa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACYdDKaA4zXelkPClgsTBFb-3UuZDkAfw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
