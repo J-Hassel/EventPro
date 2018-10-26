@@ -32,4 +32,7 @@
     <string name="text_about_me">About Me</string>
     <string name="text_interests">Interests</string>
     <string name="text_create_event">Create an event</string>
+    <string name="text_title">Title</string>
+    <string name="text_date_and_time">Date and Time</string>
+    <string name="text_cost">Cost</string>
 </resources>
