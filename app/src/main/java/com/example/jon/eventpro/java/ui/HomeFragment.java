@@ -3,11 +3,17 @@ package com.example.jon.eventpro.java.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -27,10 +33,13 @@ import static android.content.ContentValues.TAG;
  */
 public class HomeFragment extends Fragment
 {
+    private DrawerLayout drawerLayout;
+    private NavigationView navDrawer;
     private RecyclerView recyclerView;
     private RecyclerViewAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private ImageButton btnCreate;
+    private Toolbar toolbar;
 
     private ArrayList<Event> listEvent = new ArrayList<Event>();
 
@@ -45,6 +54,28 @@ public class HomeFragment extends Fragment
     {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
+
+
+        toolbar = view.findViewById(R.id.toolbar);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+
+
+        drawerLayout = view.findViewById(R.id.drawer_layout);
+        navDrawer = view.findViewById(R.id.nav_view);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
+        setupDrawerContent(navDrawer);
+
+
+
+
 
         btnCreate = view.findViewById(R.id.button_create_event);
         btnCreate.setOnClickListener(new View.OnClickListener()
@@ -69,6 +100,58 @@ public class HomeFragment extends Fragment
 
         return view;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        // The action bar home/up action should open or close the drawer.
+        switch (item.getItemId())
+        {
+            case android.R.id.home:
+                drawerLayout.openDrawer(GravityCompat.START);
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void setupDrawerContent(NavigationView navigationView)
+    {
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener()
+                {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem)
+                    {
+                        selectDrawerItem(menuItem);
+                        return true;
+                    }
+                });
+    }
+
+    public void selectDrawerItem(MenuItem menuItem)
+    {
+        switch(menuItem.getItemId())
+        {
+            case R.id.profile:
+                startActivity(new Intent(getActivity(), ProfileActivity.class));
+                break;
+            case R.id.login:
+                startActivity(new Intent(getActivity(), LoginActivity.class));
+                break;
+            case R.id.register:
+                startActivity(new Intent(getActivity(), RegisterActivity.class));
+                break;
+            case R.id.information:
+                startActivity(new Intent(getActivity(), InformationActivity.class));
+        }
+
+        //menu items will not be highlighted
+        menuItem.setCheckable(false);
+
+        drawerLayout.closeDrawers();
+    }
+
 
     private void initRecyclerView()
     {

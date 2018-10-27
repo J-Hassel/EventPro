@@ -35,4 +35,5 @@
     <string name="text_title">Title</string>
     <string name="text_date_and_time">Date and Time</string>
     <string name="text_cost">Cost</string>
+    <string name="text_more">More</string>
 </resources>
