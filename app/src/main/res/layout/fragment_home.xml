@@ -9,15 +9,6 @@
     tools:context="java.ui.HomeFragment">
 
 
-    <android.support.design.widget.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="?android:attr/colorBackground"
-        app:menu="@menu/activity_main_drawer"
-        app:headerLayout="@layout/nav_header"/>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -56,5 +47,15 @@
         </android.support.v7.widget.RecyclerView>
 
     </LinearLayout>
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="?android:attr/colorBackground"
+        app:menu="@menu/activity_main_drawer"
+        app:headerLayout="@layout/nav_header" />
+
 
 </android.support.v4.widget.DrawerLayout>

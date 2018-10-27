@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.example.jon.eventpro.R;
 
@@ -18,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     private HomeFragment homeFragment;
     private SearchFragment searchFragment;
-    private MoreFragment settingsFragment;
+//    private MessagesFragment messagesFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         //fragments
         homeFragment = new HomeFragment();
         searchFragment = new SearchFragment();
-        settingsFragment = new MoreFragment();
+//        messagesFragment = new MessagesFragment();
 
         //start with the home fragment
         setFragment(homeFragment);
@@ -53,8 +54,9 @@ public class MainActivity extends AppCompatActivity {
                         setFragment(searchFragment);
                         return true;
 
-                    case R.id.nav_settings:
-                        setFragment(settingsFragment);
+                    case R.id.nav_messages:
+//                        setFragment(messagesFragment);
+                        Toast.makeText(MainActivity.this, "NOT DONE YET", Toast.LENGTH_SHORT).show();
                         return true;
 
                     default: return false;

@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.jon.eventpro.R;
 import com.example.jon.eventpro.java.Event;
@@ -149,7 +150,7 @@ public class HomeFragment extends Fragment
         //menu items will not be highlighted
         menuItem.setCheckable(false);
 
-        drawerLayout.closeDrawers();
+//        drawerLayout.closeDrawers();
     }
 
 
