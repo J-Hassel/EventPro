@@ -17,12 +17,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.jon.eventpro.R;
 import com.example.jon.eventpro.java.Event;
-import com.example.jon.eventpro.java.RecyclerViewAdapter;
+import com.example.jon.eventpro.java.EventRecyclerViewAdapter;
 
 import java.util.ArrayList;
 
@@ -37,7 +35,7 @@ public class HomeFragment extends Fragment
     private DrawerLayout drawerLayout;
     private NavigationView navDrawer;
     private RecyclerView recyclerView;
-    private RecyclerViewAdapter adapter;
+    private EventRecyclerViewAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private ImageButton btnCreate;
     private Toolbar toolbar;
@@ -89,8 +87,8 @@ public class HomeFragment extends Fragment
         });
 
         //setting up recyclerView
-        recyclerView = view.findViewById(R.id.recycler_view);
-        adapter = new RecyclerViewAdapter(listEvent, getContext());
+        recyclerView = view.findViewById(R.id.rv_home);
+        adapter = new EventRecyclerViewAdapter(listEvent, getContext());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 

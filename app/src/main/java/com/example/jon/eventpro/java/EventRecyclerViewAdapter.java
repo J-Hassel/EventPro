@@ -16,14 +16,12 @@ import com.example.jon.eventpro.java.ui.EventActivity;
 
 import java.util.ArrayList;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>
+public class EventRecyclerViewAdapter extends RecyclerView.Adapter<EventRecyclerViewAdapter.ViewHolder>
 {
-    private static final String TAG = "RecyclerViewAdapter";
-
     private ArrayList<Event> listEvent = new ArrayList<>();
     private Context context;
 
-    public RecyclerViewAdapter(ArrayList<Event> listEvent, Context mContext)
+    public EventRecyclerViewAdapter(ArrayList<Event> listEvent, Context mContext)
     {
         this.listEvent = listEvent;
         this.context = mContext;

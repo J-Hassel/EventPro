@@ -35,7 +35,8 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCZKA99l42yx26GblonuoWVlti9u9Tl0ao" />
 
-        <activity android:name=".java.ui.CreateEventActivity"></activity>
+        <activity android:name=".java.ui.CreateEventActivity" />
+        <activity android:name=".java.ui.MessagingActivity"></activity>
     </application>
 
 </manifest>

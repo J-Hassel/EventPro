@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     private HomeFragment homeFragment;
     private SearchFragment searchFragment;
-//    private MessagesFragment messagesFragment;
+    private MessagesFragment messagesFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         //fragments
         homeFragment = new HomeFragment();
         searchFragment = new SearchFragment();
-//        messagesFragment = new MessagesFragment();
+        messagesFragment = new MessagesFragment();
 
         //start with the home fragment
         setFragment(homeFragment);
@@ -55,8 +55,7 @@ public class MainActivity extends AppCompatActivity {
                         return true;
 
                     case R.id.nav_messages:
-//                        setFragment(messagesFragment);
-                        Toast.makeText(MainActivity.this, "NOT DONE YET", Toast.LENGTH_SHORT).show();
+                        setFragment(messagesFragment);
                         return true;
 
                     default: return false;
