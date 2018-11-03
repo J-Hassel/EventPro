@@ -26,11 +26,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".java.ui.LoginActivity" />
         <activity android:name=".java.ui.InformationActivity" />
         <activity android:name=".java.ui.ProfileActivity" />
         <activity android:name=".java.ui.ProfileSettingsActivity" />
-        <activity android:name=".java.ui.RegisterActivity" />
         <activity android:name=".java.ui.EventActivity" />
 
         <meta-data

@@ -1,18 +1,23 @@
 package com.example.jon.eventpro.java.ui;
 
 import android.content.Intent;
+import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.jon.eventpro.R;
+import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 public class ProfileActivity extends AppCompatActivity
 {
-    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -20,7 +25,7 @@ public class ProfileActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener()
         {
@@ -44,24 +49,40 @@ public class ProfileActivity extends AppCompatActivity
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.profile_settings:
-                profileSettings();
+                startActivity(new Intent(this, ProfileSettingsActivity.class));
                 return true;
-            case R.id.profile_log_out:
-                logout();
+
+            case R.id.profile_sign_out:
+                signOut();
                 return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-    private void profileSettings()
+
+    private void signOut()
     {
-        startActivity(new Intent(this, ProfileSettingsActivity.class));
+        AuthUI.getInstance()
+                .signOut(ProfileActivity.this)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task)
+                    {
+                        if (task.isSuccessful())
+                        {
+                            displayMessage(getString(R.string.signout_success));
+                            finish();
+                        }
+                        else
+                            displayMessage(getString(R.string.signout_failed));
+                    }
+                });
     }
 
-    private void logout()
+    private void displayMessage(String message)
     {
-        //log user out
-        finish();
+        Toast.makeText(ProfileActivity.this, message, Toast.LENGTH_LONG).show();
     }
 }

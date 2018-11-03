@@ -3,6 +3,7 @@ package com.example.jon.eventpro.java.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -16,30 +17,33 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.jon.eventpro.R;
 import com.example.jon.eventpro.java.Event;
 import com.example.jon.eventpro.java.EventRecyclerViewAdapter;
+import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
+import static android.app.Activity.RESULT_CANCELED;
+import static android.app.Activity.RESULT_OK;
 import static android.content.ContentValues.TAG;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class HomeFragment extends Fragment
 {
-    private DrawerLayout drawerLayout;
-    private NavigationView navDrawer;
-    private RecyclerView recyclerView;
-    private EventRecyclerViewAdapter adapter;
-    private RecyclerView.LayoutManager layoutManager;
-    private ImageButton btnCreate;
-    private Toolbar toolbar;
+    private FirebaseAuth auth;
+    private static final int RC_SIGN_IN = 200;
 
+    private DrawerLayout drawerLayout;
+    private RecyclerView.LayoutManager layoutManager;
     private ArrayList<Event> listEvent = new ArrayList<Event>();
 
     public HomeFragment()
@@ -48,19 +52,19 @@ public class HomeFragment extends Fragment
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState)
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
 
+        //user authentication
+        auth = FirebaseAuth.getInstance();
+        final List<AuthUI.IdpConfig> providers = Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build());
 
-        toolbar = view.findViewById(R.id.toolbar);
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 
-
         drawerLayout = view.findViewById(R.id.drawer_layout);
-        navDrawer = view.findViewById(R.id.nav_view);
+        NavigationView navDrawer = view.findViewById(R.id.nav_view);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener()
         {
@@ -72,11 +76,7 @@ public class HomeFragment extends Fragment
         });
         setupDrawerContent(navDrawer);
 
-
-
-
-
-        btnCreate = view.findViewById(R.id.button_create_event);
+        ImageButton btnCreate = view.findViewById(R.id.button_create_event);
         btnCreate.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -87,8 +87,8 @@ public class HomeFragment extends Fragment
         });
 
         //setting up recyclerView
-        recyclerView = view.findViewById(R.id.rv_home);
-        adapter = new EventRecyclerViewAdapter(listEvent, getContext());
+        RecyclerView recyclerView = view.findViewById(R.id.rv_home);
+        EventRecyclerViewAdapter adapter = new EventRecyclerViewAdapter(listEvent, getContext());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -96,14 +96,16 @@ public class HomeFragment extends Fragment
             initRecyclerView();
 
 
-
+        // Inflate the layout for this fragment
         return view;
     }
 
+
+    // -------------------------------- navigation drawer functions -------------------------------- \\
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-        // The action bar home/up action should open or close the drawer.
+        // The action bar home/up action(menu icon) should open or close the drawer
         switch (item.getItemId())
         {
             case android.R.id.home:
@@ -133,25 +135,96 @@ public class HomeFragment extends Fragment
         switch(menuItem.getItemId())
         {
             case R.id.profile:
-                startActivity(new Intent(getActivity(), ProfileActivity.class));
+                if(auth.getCurrentUser() == null)
+                    signIn();
+                else
+                    startActivity(new Intent(getActivity(), ProfileActivity.class));
                 break;
-            case R.id.login:
-                startActivity(new Intent(getActivity(), LoginActivity.class));
+
+            case R.id.sign_in_sign_up:
+                signIn();
                 break;
-            case R.id.register:
-                startActivity(new Intent(getActivity(), RegisterActivity.class));
-                break;
+
+//            case R.id.sign_out:
+//                signOut();
+//                break;
+
             case R.id.information:
                 startActivity(new Intent(getActivity(), InformationActivity.class));
+                break;
+
+            //temporary
+            case R.id.check_sign_in:
+                if(auth.getCurrentUser() == null)
+                    displayMessage("You are not currently signed in");
+                else
+                    displayMessage("You are signed in");
+                break;
         }
 
         //menu items will not be highlighted
         menuItem.setCheckable(false);
-
-//        drawerLayout.closeDrawers();
     }
 
 
+    private void signIn()
+    {
+        if(auth.getCurrentUser() == null)
+        {   //you have to be signed out to access sign in page
+            startActivityForResult(
+                    AuthUI.getInstance()
+                            .createSignInIntentBuilder()
+                            .setIsSmartLockEnabled(false)
+                            .build(),
+                    RC_SIGN_IN);
+        }
+        else
+            displayMessage("already signed in");
+    }
+
+    private void signOut()
+    {
+        AuthUI.getInstance()
+                .signOut(getContext())
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task)
+                    {
+                        if (task.isSuccessful())
+                            displayMessage(getString(R.string.signout_success));
+                        else
+                            displayMessage(getString(R.string.signout_failed));
+                    }
+                });
+    }
+
+    // -------------------------------- authentication helpers -------------------------------- \\
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {   //displays a message base on the result of sign in
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == RC_SIGN_IN)
+        {
+            if(resultCode == RESULT_OK)
+            {
+                displayMessage(getString(R.string.signin_success));
+
+            }
+            if(resultCode == RESULT_CANCELED)
+                displayMessage(getString(R.string.signin_failed));
+            return;
+        }
+        displayMessage(getString(R.string.unknown));
+    }
+
+    private void displayMessage(String message)
+    {
+        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+    }
+
+
+
+    // ------------------------------- initialize recycler view with events -------------------------------- \\
     private void initRecyclerView()
     {
         Log.d(TAG, "initRecyclerView: init recyclerview");

@@ -3,9 +3,9 @@
 
     <item
         android:id="@+id/profile_settings"
-        android:title="Profile Settings"/>
+        android:title="@string/text_profile_settings"/>
 
     <item
-        android:id="@+id/profile_log_out"
-        android:title="Log Out"/>
+        android:id="@+id/profile_sign_out"
+        android:title="@string/text_sign_out"/>
 </menu>

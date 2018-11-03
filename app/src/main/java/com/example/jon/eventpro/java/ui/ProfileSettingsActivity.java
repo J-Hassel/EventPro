@@ -17,10 +17,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileSettingsActivity extends AppCompatActivity
 {
-    private Toolbar toolbar;
-    private CircleImageView btnSelectImage;
-    private ImageButton btnSave;
-
     public static final int PICK_IMAGE = 1;
 
     @Override
@@ -29,7 +25,7 @@ public class ProfileSettingsActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_settings);
 
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener()
         {
@@ -40,7 +36,7 @@ public class ProfileSettingsActivity extends AppCompatActivity
             }
         });
 
-        btnSave = findViewById(R.id.button_save);
+        ImageButton btnSave = findViewById(R.id.button_save);
         btnSave.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -51,7 +47,7 @@ public class ProfileSettingsActivity extends AppCompatActivity
             }
         });
 
-        btnSelectImage = findViewById(R.id.button_select_image);
+        CircleImageView btnSelectImage = findViewById(R.id.button_select_image);
         btnSelectImage.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -73,9 +69,4 @@ public class ProfileSettingsActivity extends AppCompatActivity
     {
         //what to do with image
     }
-
-//    public void processImage()
-//    { //crops image so it is a square
-//
-//    }
 }
