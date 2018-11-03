@@ -10,8 +10,6 @@
         android:glEsVersion="0x00020000"
         android:required="true" />
 
-
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -30,19 +28,22 @@
         <activity android:name=".java.ui.ProfileActivity" />
         <activity android:name=".java.ui.ProfileSettingsActivity" />
         <activity android:name=".java.ui.EventActivity" />
+        <activity android:name=".java.ui.CreateEventActivity" />
+        <activity android:name=".java.ui.MessagingActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCZKA99l42yx26GblonuoWVlti9u9Tl0ao" />
-
-        <activity android:name=".java.ui.CreateEventActivity" />
-        <activity android:name=".java.ui.MessagingActivity"></activity>
 
         <service android:name=".java.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+        <activity android:name=".java.ui.PopupActivity"
+            android:theme="@style/AppTheme.PopupTheme"
+            android:windowSoftInputMode="stateVisible"/>
     </application>
 
 </manifest>

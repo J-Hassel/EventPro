@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.example.jon.eventpro.R;
 
@@ -21,8 +22,17 @@ public class MessagesFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_messages, container, false);
+
+        ImageButton btnComposeMsg = view.findViewById(R.id.button_compose_message);
+        btnComposeMsg.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                startActivity(new Intent(getActivity(), PopupActivity.class));
+            }
+        });
 
         Button btn = view.findViewById(R.id.test_button);
         btn.setOnClickListener(new View.OnClickListener()
@@ -34,6 +44,7 @@ public class MessagesFragment extends Fragment
             }
         });
 
+        // Inflate the layout for this fragment
         return view;
     }
 

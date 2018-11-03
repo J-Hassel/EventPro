@@ -158,7 +158,7 @@ public class HomeFragment extends Fragment
                 if(auth.getCurrentUser() == null)
                     displayMessage("You are not currently signed in");
                 else
-                    displayMessage("You are signed in");
+                    displayMessage("You are signed in as " + auth.getCurrentUser().getDisplayName());
                 break;
         }
 

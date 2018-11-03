@@ -11,8 +11,13 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.example.jon.eventpro.R;
+import com.firebase.ui.auth.AuthUI;
+import com.google.firebase.auth.FirebaseAuth;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+{
+    private FirebaseAuth auth;
+    private static final int RC_SIGN_IN = 200;
 
     private BottomNavigationView mainNav;
     private FrameLayout mainFrame;
@@ -55,7 +60,15 @@ public class MainActivity extends AppCompatActivity {
                         return true;
 
                     case R.id.nav_messages:
-                        setFragment(messagesFragment);
+                        auth = FirebaseAuth.getInstance();
+                        if(auth.getCurrentUser() == null)   //TODO: fix the nav bar bug
+                        {
+                            signIn();
+                            mainNav.setSelectedItemId(R.id.nav_home);
+                        }
+
+                        else
+                            setFragment(messagesFragment);
                         return true;
 
                     default: return false;
@@ -71,4 +84,25 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.main_frame, fragment);
         fragmentTransaction.commit();
     }
+
+    private void signIn()
+    {
+        if(auth.getCurrentUser() == null)
+        {   //you have to be signed out to access sign in page
+            startActivityForResult(
+                    AuthUI.getInstance()
+                            .createSignInIntentBuilder()
+                            .setIsSmartLockEnabled(false)
+                            .build(),
+                    RC_SIGN_IN);
+        }
+        else
+            displayMessage("already signed in");
+    }
+
+    private void displayMessage(String message)
+    {
+        Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
+    }
+
 }
