@@ -8,12 +8,23 @@
     android:layout_margin="10dp"
     android:theme="@style/AppTheme.PopupTheme">
 
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:text="Send to" />
+
     <EditText
         android:id="@+id/editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_marginStart="0dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="10dp"
         android:layout_toStartOf="@+id/imageButton"
         android:ems="10"
@@ -24,7 +35,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="23dp"
         android:layout_marginEnd="0dp"
         android:background="@color/colorPrimary"
         android:src="@drawable/ic_create_event" />

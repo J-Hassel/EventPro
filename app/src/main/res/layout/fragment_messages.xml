@@ -29,16 +29,10 @@
             android:clickable="true"
             android:contentDescription="TODO"
             android:src="@drawable/ic_create_event" />
-
     </android.support.v7.widget.Toolbar>
 
-    <Button
-        android:id="@+id/test_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="launch activity" />
-
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/message_thread_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 

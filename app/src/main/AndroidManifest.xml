@@ -35,12 +35,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCZKA99l42yx26GblonuoWVlti9u9Tl0ao" />
 
-        <service android:name=".java.MyFirebaseMessagingService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-
         <activity android:name=".java.ui.PopupActivity"
             android:theme="@style/AppTheme.PopupTheme"
             android:windowSoftInputMode="stateVisible"/>

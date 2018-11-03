@@ -108,7 +108,6 @@ public class CreateEventActivity extends AppCompatActivity
 
 
 
-
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth)
     {
