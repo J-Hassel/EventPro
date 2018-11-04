@@ -15,10 +15,6 @@
             android:id="@+id/log_out"
             android:icon="@drawable/ic_logout"
             android:title="Log Out"/>
-        <item
-            android:id="@+id/check_sign_in"
-            android:icon="@drawable/ic_info"
-            android:title="Check Sign In Status"/>
     </group>
 
 </menu>

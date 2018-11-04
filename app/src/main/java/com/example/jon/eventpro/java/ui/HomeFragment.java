@@ -44,10 +44,6 @@ import static android.content.ContentValues.TAG;
 public class HomeFragment extends Fragment
 {
     private FirebaseAuth auth;
-    private static final int RC_SIGN_IN = 200;
-    private String uid;
-
-    private DatabaseReference firebaseDB;
 
     private DrawerLayout drawerLayout;
     private RecyclerView.LayoutManager layoutManager;
@@ -162,11 +158,6 @@ public class HomeFragment extends Fragment
             case R.id.log_out:
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(getActivity(), LoginActivity.class));
-                break;
-
-            //temporary
-            case R.id.check_sign_in:
-                Toast.makeText(getContext(), "You are signed in as " + auth.getCurrentUser().getDisplayName(), Toast.LENGTH_SHORT).show();
                 break;
         }
 

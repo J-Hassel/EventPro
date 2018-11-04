@@ -20,11 +20,16 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity
 {
     private EditText etDisplayName, etEmail, etPassword;
     private FirebaseAuth auth;
+    private DatabaseReference database;
     private ProgressDialog registerProgress;
 
     @Override
@@ -104,10 +109,30 @@ public class RegisterActivity extends AppCompatActivity
             {
                 if(task.isSuccessful())
                 {
-                    registerProgress.dismiss();
+                    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                    String uid = currentUser.getUid();
 
-                    startActivity(new Intent(RegisterActivity.this, MainActivity.class));
-                    finish();
+                    database = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
+
+                    HashMap<String, String> userMap = new HashMap<>();
+                    userMap.put("name", displayName);
+                    userMap.put("about", "Nothing here yet!");
+                    userMap.put("image", "default");
+
+                    database.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>()
+                    {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task)
+                        {
+                            if(task.isSuccessful())
+                            {
+                                registerProgress.dismiss();
+
+                                startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                                finish();
+                            }
+                        }
+                    });
                 }
                 else
                 {
@@ -120,7 +145,7 @@ public class RegisterActivity extends AppCompatActivity
 
     private boolean isDisplayNameValid(String name)
     {
-        return name.matches("[a-zA-Z]+ [a-zA-Z]* [a-zA-Z]*");
+        return name.matches("[a-zA-Z]+ ?[a-zA-Z]* ?[a-zA-Z]*");
     }
 
     private boolean isEmailValid(String email)

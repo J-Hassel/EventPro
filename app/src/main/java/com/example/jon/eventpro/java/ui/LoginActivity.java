@@ -73,6 +73,16 @@ public class LoginActivity extends AppCompatActivity
                 }
             }
         });
+
+        TextView btnRegister = findViewById(R.id.button_register);
+        btnRegister.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+            }
+        });
     }
 
     private void loginUser(String email, String password)
