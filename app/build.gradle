@@ -49,6 +49,7 @@ dependencies {
     // FirebaseUI for Firebase Realtime Database
     implementation 'com.firebaseui:firebase-ui-database:4.2.1'
 
+    implementation 'com.google.firebase:firebase-database:16.0.4'
 }
 
 apply plugin: 'com.google.gms.google-services'

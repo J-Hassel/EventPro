@@ -8,17 +8,13 @@
             android:icon="@drawable/ic_account"
             android:title="@string/text_profile" />
         <item
-            android:id="@+id/sign_in_sign_up"
-            android:icon="@drawable/ic_login"
-            android:title="@string/text_sign_in_sign_up"/>
-        <!--<item-->
-            <!--android:id="@+id/sign_out"-->
-            <!--android:icon="@drawable/ic_login"-->
-            <!--android:title="@string/text_sign_out"/>-->
-        <item
             android:id="@+id/information"
             android:icon="@drawable/ic_info"
             android:title="@string/text_information"/>
+        <item
+            android:id="@+id/log_out"
+            android:icon="@drawable/ic_logout"
+            android:title="Log Out"/>
         <item
             android:id="@+id/check_sign_in"
             android:icon="@drawable/ic_info"

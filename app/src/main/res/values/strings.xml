@@ -37,7 +37,7 @@
     <string name="text_sign_in_sign_up">Sign In/Sign Up</string>
     <string name="text_sign_out">Sign Out</string>
     <string name="signin_failed">unable to sign in</string>
-    <string name="signin_success">signed in</string>
+    <string name="signin_success">Hello, </string>
     <string name="signout_failed">unable to sign out</string>
     <string name="signout_success">signed out</string>
 </resources>

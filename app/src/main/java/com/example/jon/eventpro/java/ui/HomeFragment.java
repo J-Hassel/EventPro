@@ -28,9 +28,13 @@ import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import static android.app.Activity.RESULT_CANCELED;
@@ -41,6 +45,9 @@ public class HomeFragment extends Fragment
 {
     private FirebaseAuth auth;
     private static final int RC_SIGN_IN = 200;
+    private String uid;
+
+    private DatabaseReference firebaseDB;
 
     private DrawerLayout drawerLayout;
     private RecyclerView.LayoutManager layoutManager;
@@ -58,7 +65,6 @@ public class HomeFragment extends Fragment
 
         //user authentication
         auth = FirebaseAuth.getInstance();
-        final List<AuthUI.IdpConfig> providers = Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build());
 
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
@@ -101,6 +107,17 @@ public class HomeFragment extends Fragment
     }
 
 
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+
+        FirebaseUser currentUser = auth.getCurrentUser();
+
+        if(currentUser == null)
+            startActivity(new Intent(getActivity(), LoginActivity.class));
+    }
+
     // -------------------------------- navigation drawer functions -------------------------------- \\
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
@@ -135,93 +152,27 @@ public class HomeFragment extends Fragment
         switch(menuItem.getItemId())
         {
             case R.id.profile:
-                if(auth.getCurrentUser() == null)
-                    signIn();
-                else
-                    startActivity(new Intent(getActivity(), ProfileActivity.class));
+                startActivity(new Intent(getActivity(), ProfileActivity.class));
                 break;
-
-            case R.id.sign_in_sign_up:
-                signIn();
-                break;
-
-//            case R.id.sign_out:
-//                signOut();
-//                break;
 
             case R.id.information:
                 startActivity(new Intent(getActivity(), InformationActivity.class));
                 break;
 
+            case R.id.log_out:
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(getActivity(), LoginActivity.class));
+                break;
+
             //temporary
             case R.id.check_sign_in:
-                if(auth.getCurrentUser() == null)
-                    displayMessage("You are not currently signed in");
-                else
-                    displayMessage("You are signed in as " + auth.getCurrentUser().getDisplayName());
+                Toast.makeText(getContext(), "You are signed in as " + auth.getCurrentUser().getDisplayName(), Toast.LENGTH_SHORT).show();
                 break;
         }
 
         //menu items will not be highlighted
         menuItem.setCheckable(false);
     }
-
-
-    private void signIn()
-    {
-        if(auth.getCurrentUser() == null)
-        {   //you have to be signed out to access sign in page
-            startActivityForResult(
-                    AuthUI.getInstance()
-                            .createSignInIntentBuilder()
-                            .setIsSmartLockEnabled(false)
-                            .build(),
-                    RC_SIGN_IN);
-        }
-        else
-            displayMessage("already signed in");
-    }
-
-    private void signOut()
-    {
-        AuthUI.getInstance()
-                .signOut(getContext())
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task)
-                    {
-                        if (task.isSuccessful())
-                            displayMessage(getString(R.string.signout_success));
-                        else
-                            displayMessage(getString(R.string.signout_failed));
-                    }
-                });
-    }
-
-    // -------------------------------- authentication helpers -------------------------------- \\
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {   //displays a message base on the result of sign in
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == RC_SIGN_IN)
-        {
-            if(resultCode == RESULT_OK)
-            {
-                displayMessage(getString(R.string.signin_success));
-
-            }
-            if(resultCode == RESULT_CANCELED)
-                displayMessage(getString(R.string.signin_failed));
-            return;
-        }
-        displayMessage(getString(R.string.unknown));
-    }
-
-    private void displayMessage(String message)
-    {
-        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-    }
-
 
 
     // ------------------------------- initialize recycler view with events -------------------------------- \\

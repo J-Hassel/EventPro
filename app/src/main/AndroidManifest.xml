@@ -35,9 +35,12 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCZKA99l42yx26GblonuoWVlti9u9Tl0ao" />
 
-        <activity android:name=".java.ui.PopupActivity"
+        <activity
+            android:name=".java.ui.PopupActivity"
             android:theme="@style/AppTheme.PopupTheme"
-            android:windowSoftInputMode="stateVisible"/>
+            android:windowSoftInputMode="stateVisible" />
+        <activity android:name=".java.ui.LoginActivity" />
+        <activity android:name=".java.ui.RegisterActivity"></activity>
     </application>
 
 </manifest>
