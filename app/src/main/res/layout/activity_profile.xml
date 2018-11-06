@@ -36,29 +36,27 @@
                 android:layout_height="200dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
-                android:src="@drawable/test_profile_pic" />
+                android:src="@drawable/default_profile_pic" />
 
             <TextView
-                android:id="@+id/tv_user_name"
+                android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
                 android:gravity="center_horizontal"
                 android:maxLines="1"
-                android:text="Jon Hassel"
                 android:textColor="@color/dark_gray"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv_user_city"
+                android:id="@+id/tv_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center_horizontal"
-                android:maxLines="1"
-                android:text="Tallahassee" />
+                android:maxLines="1" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -71,13 +69,12 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv_about_me"
+                android:id="@+id/tv_about"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="20dp"
-                android:text="about about about aboutabout about about aboutabout about about aboutabout about about aboutabout about about aboutabout about about aboutabout about about aboutabout about about aboutabout about about aboutabout about about about" />
+                android:layout_marginEnd="20dp" />
 
             <View
                 android:layout_width="match_parent"

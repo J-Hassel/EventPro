@@ -115,9 +115,11 @@ public class RegisterActivity extends AppCompatActivity
                     database = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
 
                     HashMap<String, String> userMap = new HashMap<>();
-                    userMap.put("name", displayName);
-                    userMap.put("about", "Nothing here yet!");
                     userMap.put("image", "default");
+                    userMap.put("name", displayName);
+                    userMap.put("location", "United States");
+                    userMap.put("about", "Nothing here yet!");
+
 
                     database.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>()
                     {
