@@ -67,8 +67,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Jon Hassel" />
+                android:inputType="textPersonName" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -85,8 +84,27 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Tallahassee" />
+                android:inputType="textPersonName" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:paddingLeft="4dp"
+                android:text="@string/text_about_me" />
+
+            <EditText
+                android:id="@+id/et_about"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:ems="10"
+                android:inputType="textCapSentences|textMultiLine|textPersonName"
+                android:lines="5"
+                android:maxLines="15"
+                android:scrollHorizontally="false" />
 
             <Switch
                 android:id="@+id/switch_notifications"
@@ -103,6 +121,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
                 android:switchPadding="75dp"
                 android:text="Enable Location" />
         </LinearLayout>

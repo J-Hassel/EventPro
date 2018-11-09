@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -42,7 +43,7 @@ public class ProfileActivity extends AppCompatActivity
         setContentView(R.layout.activity_profile);
 
 
-        profileImage = findViewById(R.id.button_select_image);
+        profileImage = findViewById(R.id.profile_image);
         displayName = findViewById(R.id.tv_name);
         userLocation = findViewById(R.id.tv_location);
         userAbout = findViewById(R.id.tv_about);
@@ -61,7 +62,7 @@ public class ProfileActivity extends AppCompatActivity
                 String location = dataSnapshot.child("location").getValue().toString();
                 String about = dataSnapshot.child("about").getValue().toString();
 
-//                image.
+                Picasso.get().load(image).into(profileImage);
                 displayName.setText(name);
                 userLocation.setText(location);
                 userAbout.setText(about);
