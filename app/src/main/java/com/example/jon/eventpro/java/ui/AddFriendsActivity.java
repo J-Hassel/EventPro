@@ -46,9 +46,6 @@ public class AddFriendsActivity extends AppCompatActivity
 
         usersList = findViewById(R.id.users_list);
         usersList.setLayoutManager(new LinearLayoutManager(this));
-
-
-
     }
 
     @Override
@@ -100,6 +97,12 @@ public class AddFriendsActivity extends AppCompatActivity
             view = itemView;
         }
 
+        public void setImage(String image)
+        {
+            CircleImageView userImage = view.findViewById(R.id.user_image);
+            Picasso.get().load(image).placeholder(R.drawable.default_profile_pic).into(userImage);
+        }
+
         public void setDisplayName(String name)
         {
             TextView displayName = view.findViewById(R.id.tv_display_name);
@@ -110,12 +113,6 @@ public class AddFriendsActivity extends AppCompatActivity
         {
             TextView userStatus = view.findViewById(R.id.tv_status);
             userStatus.setText(status);
-        }
-
-        public void setImage(String image)
-        {
-            CircleImageView userImage = view.findViewById(R.id.user_image);
-            Picasso.get().load(image).placeholder(R.drawable.default_profile_pic).into(userImage);
         }
     }
 }

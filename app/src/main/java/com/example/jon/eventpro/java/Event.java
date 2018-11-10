@@ -1,13 +1,17 @@
 package com.example.jon.eventpro.java;
 
+import com.example.jon.eventpro.R;
+
 public class Event
 {
+
     private int imageID;
-    private String title, date, time, location, address, price, about;
+    private String image, title, date, time, location, address, price, about;
 
+    public Event()
+    {
 
-    //TODO: Constructor
-
+    }
 
     public Event(int imageID, String title, String date, String location)
     {
@@ -17,14 +21,26 @@ public class Event
         this.location = location;
     }
 
-    public int getImageID()
+    public Event(String image, String title, String date, String time, String location, String address, String price, String about)
     {
-        return imageID;
+        this.image = image;
+        this.title = title;
+        this.date = date;
+        this.time = time;
+        this.location = location;
+        this.address = address;
+        this.price = price;
+        this.about = about;
     }
 
-    public void setImageID(int imageID)
+    public String getImage()
     {
-        this.imageID = imageID;
+        return image;
+    }
+
+    public void setImage(String image)
+    {
+        this.image = image;
     }
 
     public String getTitle()
@@ -96,5 +112,4 @@ public class Event
     {
         this.about = about;
     }
-
 }

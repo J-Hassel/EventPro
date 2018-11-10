@@ -208,9 +208,8 @@ public class ProfileSettingsActivity extends AppCompatActivity
                 thumb_bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
             }
             catch (IOException e)
-            {   //TODO: FIX EXCEPTION has to do with runtime request permissions
-                Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-                e.printStackTrace();
+            {
+                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
             final byte[] thumb_byte = baos.toByteArray();
 
