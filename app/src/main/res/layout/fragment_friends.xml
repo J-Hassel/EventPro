@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".java.ui.MessagesFragment">
+    tools:context=".java.ui.FriendsFragment">
 
 
     <android.support.v7.widget.Toolbar
@@ -16,11 +16,11 @@
         android:background="@color/colorPrimary"
         android:minHeight="@dimen/toolbarHeight"
         android:theme="?attr/actionBarTheme"
-        app:title="Messaging Center"
+        app:title="Friends"
         app:titleTextColor="@color/white">
 
         <ImageButton
-            android:id="@+id/button_compose_message"
+            android:id="@+id/button_add_friend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"

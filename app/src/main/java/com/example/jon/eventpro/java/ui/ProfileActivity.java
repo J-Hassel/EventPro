@@ -1,7 +1,11 @@
 package com.example.jon.eventpro.java.ui;
 
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.provider.ContactsContract;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,6 +28,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -42,6 +48,16 @@ public class ProfileActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                onBackPressed();
+            }
+        });
 
         profileImage = findViewById(R.id.profile_image);
         displayName = findViewById(R.id.tv_name);
@@ -52,6 +68,7 @@ public class ProfileActivity extends AppCompatActivity
         String currentUid = currentUser.getUid();
 
         database = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUid);
+        database.keepSynced(true);  //for offline capabilities
         database.addValueEventListener(new ValueEventListener()
         {
             @Override
@@ -61,8 +78,14 @@ public class ProfileActivity extends AppCompatActivity
                 String name = dataSnapshot.child("name").getValue().toString();
                 String location = dataSnapshot.child("location").getValue().toString();
                 String about = dataSnapshot.child("about").getValue().toString();
+                String status = dataSnapshot.child("status").getValue().toString();
+                String thumb_image = dataSnapshot.child("thumb_image").getValue().toString();
 
-                Picasso.get().load(image).into(profileImage);
+
+                if(!image.equals("default"))
+                {
+                    Picasso.get().load(image).placeholder(R.drawable.default_profile_pic).into(profileImage);
+                }
                 displayName.setText(name);
                 userLocation.setText(location);
                 userAbout.setText(about);
@@ -72,17 +95,6 @@ public class ProfileActivity extends AppCompatActivity
             public void onCancelled(@NonNull DatabaseError databaseError)
             {
 
-            }
-        });
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                onBackPressed();
             }
         });
     }
@@ -113,4 +125,5 @@ public class ProfileActivity extends AppCompatActivity
                 return super.onOptionsItemSelected(item);
         }
     }
+
 }

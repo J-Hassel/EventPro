@@ -2,17 +2,15 @@ package com.example.jon.eventpro.java.ui;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.TextureView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.support.v7.widget.Toolbar;
 
 import com.example.jon.eventpro.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -110,15 +108,18 @@ public class RegisterActivity extends AppCompatActivity
                 if(task.isSuccessful())
                 {
                     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                    String uid = currentUser.getUid();
+                    String currentUid = currentUser.getUid();
 
-                    database = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
+                    database = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUid);
 
                     HashMap<String, String> userMap = new HashMap<>();
                     userMap.put("image", "default");
                     userMap.put("name", displayName);
                     userMap.put("location", "United States");
                     userMap.put("about", "Nothing here yet!");
+                    userMap.put("status", "Hello!");
+                    userMap.put("thumb_image", "default");
+
 
 
                     database.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>()

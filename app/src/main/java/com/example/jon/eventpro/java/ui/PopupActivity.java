@@ -3,6 +3,7 @@ package com.example.jon.eventpro.java.ui;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.widget.EditText;
 
 import com.example.jon.eventpro.R;
 
@@ -22,5 +23,6 @@ public class PopupActivity extends AppCompatActivity
         int height = dm.heightPixels;
 
         getWindow().setLayout((int) (width * 0.8), (int) (height * 0.15));
+
     }
 }

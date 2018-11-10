@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity
 
     private HomeFragment homeFragment;
     private SearchFragment searchFragment;
-    private MessagesFragment messagesFragment;
+    private FriendsFragment friendsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity
         //fragments
         homeFragment = new HomeFragment();
         searchFragment = new SearchFragment();
-        messagesFragment = new MessagesFragment();
+        friendsFragment = new FriendsFragment();
 
         //start with the home fragment
         setFragment(homeFragment);
@@ -59,16 +59,8 @@ public class MainActivity extends AppCompatActivity
                         setFragment(searchFragment);
                         return true;
 
-                    case R.id.nav_messages:
-                        auth = FirebaseAuth.getInstance();
-                        if(auth.getCurrentUser() == null)   //TODO: fix the nav bar bug
-                        {
-                            signIn();
-                            mainNav.setSelectedItemId(R.id.nav_home);
-                        }
-
-                        else
-                            setFragment(messagesFragment);
+                    case R.id.nav_friends:
+                        setFragment(friendsFragment);
                         return true;
 
                     default: return false;
