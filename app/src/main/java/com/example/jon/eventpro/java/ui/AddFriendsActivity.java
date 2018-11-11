@@ -1,10 +1,9 @@
 package com.example.jon.eventpro.java.ui;
 
-import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -31,8 +30,6 @@ public class AddFriendsActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_friends);
 
-        usersDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener()
@@ -43,6 +40,9 @@ public class AddFriendsActivity extends AppCompatActivity
                 onBackPressed();
             }
         });
+
+        usersDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
+        usersDatabase.keepSynced(true);     //for offline capabilities
 
         usersList = findViewById(R.id.users_list);
         usersList.setLayoutManager(new LinearLayoutManager(this));
@@ -64,9 +64,9 @@ public class AddFriendsActivity extends AppCompatActivity
             @Override
             protected void populateViewHolder(UserViewHolder viewHolder, User model, int position)
             {
+                viewHolder.setImage(model.getThumbImage());
                 viewHolder.setDisplayName(model.getName());
                 viewHolder.setStatus(model.getAbout());
-                viewHolder.setImage(model.getThumbImage());
 
                 final String userID = getRef(position).getKey();
 
@@ -105,13 +105,13 @@ public class AddFriendsActivity extends AppCompatActivity
 
         public void setDisplayName(String name)
         {
-            TextView displayName = view.findViewById(R.id.tv_display_name);
+            TextView displayName = view.findViewById(R.id.user_name);
             displayName.setText(name);
         }
 
         public void setStatus(String status)
         {
-            TextView userStatus = view.findViewById(R.id.tv_status);
+            TextView userStatus = view.findViewById(R.id.user_status);
             userStatus.setText(status);
         }
     }

@@ -5,15 +5,23 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.jon.eventpro.R;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
+import java.text.DateFormat;
+import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -22,6 +30,8 @@ public class UserActivity extends AppCompatActivity
 
     private TextView name, location, status;
     private CircleImageView image;
+    private DatabaseReference friendsDatabase;
+    private FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -40,12 +50,18 @@ public class UserActivity extends AppCompatActivity
             }
         });
 
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        final String currentUid = currentUser.getUid();
+
+        friendsDatabase = FirebaseDatabase.getInstance().getReference().child("Friends");
+        friendsDatabase.keepSynced(true);   //for offline capabilities
+
         image = findViewById(R.id.profile_image);
         name = findViewById(R.id.tv_name);
         location = findViewById(R.id.tv_location);
         status = findViewById(R.id.tv_status);
 
-        String userID = getIntent().getStringExtra("userID");
+        final String userID = getIntent().getStringExtra("userID");
         DatabaseReference usersDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
         usersDatabase.addValueEventListener(new ValueEventListener()
         {
@@ -71,5 +87,38 @@ public class UserActivity extends AppCompatActivity
 
             }
         });
+
+
+        Button btnAddFriend = findViewById(R.id.button_add_friend);
+        btnAddFriend.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                if(currentUid != userID)
+                {
+                    final String currentDate = DateFormat.getDateTimeInstance().format(new Date());
+                    friendsDatabase.child(currentUid).child(userID).child("date_added").setValue(currentDate).addOnSuccessListener(new OnSuccessListener<Void>()
+                    {
+                        @Override
+                        public void onSuccess(Void aVoid)
+                        {
+                            friendsDatabase.child(userID).child(currentUid).child("date_added").setValue(currentDate).addOnSuccessListener(new OnSuccessListener<Void>()
+                            {
+                                @Override
+                                public void onSuccess(Void aVoid)
+                                {
+                                    Toast.makeText(UserActivity.this, "friend added", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    });
+                }
+                else    //TODO: FIX THIS
+                    Toast.makeText(UserActivity.this, "You cannot add yourself", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
     }
 }

@@ -38,15 +38,14 @@ public class SearchFragment extends Fragment
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState)
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
-        eventsDatabase = FirebaseDatabase.getInstance().getReference().child("Events");
-
         searchBar = view.findViewById(R.id.search_bar);
 
+        eventsDatabase = FirebaseDatabase.getInstance().getReference().child("Events");
+        eventsDatabase.keepSynced(true);    //for offline capabilities
 
         //setting up recyclerView
         eventsList = view.findViewById(R.id.events_list);
@@ -96,42 +95,5 @@ public class SearchFragment extends Fragment
 
         eventsList.setAdapter(firebaseRecyclerAdapter);
     }
-
-
-    public static class EventViewHolder extends RecyclerView.ViewHolder
-    {
-        View view;
-
-        public EventViewHolder(@NonNull View itemView)
-        {
-            super(itemView);
-
-            view = itemView;
-        }
-
-
-        public void setImage(String image)
-        {
-            ImageView eventImage = view.findViewById(R.id.event_image);
-            Picasso.get().load(image).placeholder(R.drawable.testing).into(eventImage);
-        }
-
-        public void setTitle(String title)
-        {
-            TextView eventTitle = view.findViewById(R.id.event_title);
-            eventTitle.setText(title);
-        }
-
-        public void setDate(String date)
-        {
-            TextView eventDate = view.findViewById(R.id.event_date);
-            eventDate.setText(date);
-        }
-
-        public void setLocation(String location)
-        {
-            TextView eventLocation = view.findViewById(R.id.event_location);
-            eventLocation.setText(location);
-        }
-    }
+        //EventViewHolder class is in HomeFragment
 }

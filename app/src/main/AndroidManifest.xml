@@ -32,19 +32,14 @@
         <activity android:name=".java.ui.EventActivity" />
         <activity android:name=".java.ui.CreateEventActivity" />
         <activity android:name=".java.ui.MessagingActivity" />
+        <activity android:name=".java.ui.LoginActivity" />
+        <activity android:name=".java.ui.RegisterActivity" />
+        <activity android:name=".java.ui.AddFriendsActivity" />
+        <activity android:name=".java.ui.UserActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCZKA99l42yx26GblonuoWVlti9u9Tl0ao" />
-
-        <activity
-            android:name=".java.ui.PopupActivity"
-            android:theme="@style/AppTheme.PopupTheme"
-            android:windowSoftInputMode="stateVisible" />
-        <activity android:name=".java.ui.LoginActivity" />
-        <activity android:name=".java.ui.RegisterActivity" />
-        <activity android:name=".java.ui.AddFriendsActivity" />
-        <activity android:name=".java.ui.UserActivity"></activity>
     </application>
 
 </manifest>

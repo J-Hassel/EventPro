@@ -51,6 +51,7 @@ public class HomeFragment extends Fragment
         auth = FirebaseAuth.getInstance();
         eventsDatabase = FirebaseDatabase.getInstance().getReference().child("Events");
 
+        eventsDatabase.keepSynced(true);    //for offline capabilities
 
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
@@ -148,7 +149,7 @@ public class HomeFragment extends Fragment
         public void setImage(String image)
         {
             ImageView eventImage = view.findViewById(R.id.event_image);
-            Picasso.get().load(image).placeholder(R.drawable.testing).into(eventImage);
+            Picasso.get().load(image).placeholder(R.drawable.testing2).into(eventImage);
         }
 
         public void setTitle(String title)

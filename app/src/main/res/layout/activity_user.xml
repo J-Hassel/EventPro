@@ -17,6 +17,7 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:navigationIcon="@drawable/ic_arrow_back"
         app:popupTheme="@style/Base.ThemeOverlay.AppCompat.Light"
+        app:title="."
         app:titleTextColor="@color/white" />
 
     <ScrollView

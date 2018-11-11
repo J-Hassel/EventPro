@@ -5,10 +5,11 @@
     android:layout_margin="10dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/message_profile_image"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/default_profile_pic"/>
+        android:src="@drawable/default_profile_pic" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,7 +18,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/friend_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -27,7 +28,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/friend_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
