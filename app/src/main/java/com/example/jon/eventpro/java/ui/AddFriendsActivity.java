@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.example.jon.eventpro.R;
 import com.example.jon.eventpro.java.User;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
@@ -23,6 +25,7 @@ public class AddFriendsActivity extends AppCompatActivity
 {
     private RecyclerView usersList;
     private DatabaseReference usersDatabase;
+    String currentUid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -44,6 +47,8 @@ public class AddFriendsActivity extends AppCompatActivity
         usersDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
         usersDatabase.keepSynced(true);     //for offline capabilities
 
+        currentUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
         usersList = findViewById(R.id.users_list);
         usersList.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -64,11 +69,17 @@ public class AddFriendsActivity extends AppCompatActivity
             @Override
             protected void populateViewHolder(UserViewHolder viewHolder, User model, int position)
             {
+                final String userID = getRef(position).getKey();
+
                 viewHolder.setImage(model.getThumbImage());
                 viewHolder.setDisplayName(model.getName());
                 viewHolder.setStatus(model.getAbout());
 
-                final String userID = getRef(position).getKey();
+                if(userID.equals(currentUid))
+                {   //bypasses the onclick listener, so you cannot add yourself
+                    viewHolder.setDisplayName("Me");
+                    return;
+                }
 
                 viewHolder.view.setOnClickListener(new View.OnClickListener()
                 {
@@ -77,6 +88,7 @@ public class AddFriendsActivity extends AppCompatActivity
                     {
                         Intent userIntent = new Intent(AddFriendsActivity.this, UserActivity.class);
                         userIntent.putExtra("userID", userID);
+                        finish();
                         startActivity(userIntent);
                     }
                 });

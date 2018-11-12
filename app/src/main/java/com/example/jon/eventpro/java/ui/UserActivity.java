@@ -31,7 +31,7 @@ public class UserActivity extends AppCompatActivity
     private TextView name, location, status;
     private CircleImageView image;
     private DatabaseReference friendsDatabase;
-    private FirebaseUser currentUser;
+    private String currentUid, userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -50,8 +50,7 @@ public class UserActivity extends AppCompatActivity
             }
         });
 
-        currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        final String currentUid = currentUser.getUid();
+        currentUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         friendsDatabase = FirebaseDatabase.getInstance().getReference().child("Friends");
         friendsDatabase.keepSynced(true);   //for offline capabilities
@@ -61,7 +60,7 @@ public class UserActivity extends AppCompatActivity
         location = findViewById(R.id.tv_location);
         status = findViewById(R.id.tv_status);
 
-        final String userID = getIntent().getStringExtra("userID");
+        userID = getIntent().getStringExtra("userID");
         DatabaseReference usersDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
         usersDatabase.addValueEventListener(new ValueEventListener()
         {
@@ -88,37 +87,30 @@ public class UserActivity extends AppCompatActivity
             }
         });
 
-
         Button btnAddFriend = findViewById(R.id.button_add_friend);
         btnAddFriend.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                if(currentUid != userID)
+                final String currentDate = DateFormat.getDateTimeInstance().format(new Date());
+                friendsDatabase.child(currentUid).child(userID).child("date_added").setValue(currentDate).addOnSuccessListener(new OnSuccessListener<Void>()
                 {
-                    final String currentDate = DateFormat.getDateTimeInstance().format(new Date());
-                    friendsDatabase.child(currentUid).child(userID).child("date_added").setValue(currentDate).addOnSuccessListener(new OnSuccessListener<Void>()
+                    @Override
+                    public void onSuccess(Void aVoid)
                     {
-                        @Override
-                        public void onSuccess(Void aVoid)
+                        friendsDatabase.child(userID).child(currentUid).child("date_added").setValue(currentDate).addOnSuccessListener(new OnSuccessListener<Void>()
                         {
-                            friendsDatabase.child(userID).child(currentUid).child("date_added").setValue(currentDate).addOnSuccessListener(new OnSuccessListener<Void>()
+                            @Override
+                            public void onSuccess(Void aVoid)
                             {
-                                @Override
-                                public void onSuccess(Void aVoid)
-                                {
-                                    Toast.makeText(UserActivity.this, "friend added", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                        }
-                    });
-                }
-                else    //TODO: FIX THIS
-                    Toast.makeText(UserActivity.this, "You cannot add yourself", Toast.LENGTH_SHORT).show();
-
+                                Toast.makeText(UserActivity.this, "Added to friends list!", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                        });
+                    }
+                });
             }
         });
-
     }
 }

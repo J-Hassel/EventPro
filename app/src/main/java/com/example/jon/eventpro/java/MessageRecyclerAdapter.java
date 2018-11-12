@@ -96,7 +96,7 @@ public class MessageRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     private void configureReceiverViewHolder(ReceiverViewHolder viewHolder, int position, String message, String image)
     {
-        Picasso.get().load(image).into(viewHolder.friendImage);
+        Picasso.get().load(image).placeholder(R.drawable.default_profile_pic).into(viewHolder.friendImage);
         viewHolder.messageText.setText(message);
     }
 

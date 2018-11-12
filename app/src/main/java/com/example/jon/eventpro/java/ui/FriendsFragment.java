@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.jon.eventpro.R;
 import com.example.jon.eventpro.java.Friend;
@@ -29,8 +30,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class FriendsFragment extends Fragment
 {
     private RecyclerView friendsList;
-    private DatabaseReference friendsDatabase, usersDatabase;
+    private DatabaseReference friendsDatabase, usersDatabase, database;
     private FirebaseUser currentUser;
+    private String currentUid;
 
 
     public FriendsFragment()
@@ -44,10 +46,11 @@ public class FriendsFragment extends Fragment
         View view = inflater.inflate(R.layout.fragment_friends, container, false);
 
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        String currentUid = currentUser.getUid();
+        currentUid = currentUser.getUid();
 
         friendsDatabase = FirebaseDatabase.getInstance().getReference().child("Friends").child(currentUid);
         usersDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
+        database = FirebaseDatabase.getInstance().getReference();
 
         //for offline capabilities
         friendsDatabase.keepSynced(true);
@@ -120,6 +123,34 @@ public class FriendsFragment extends Fragment
                         friendIntent.putExtra("friendID", friendID);
                         friendIntent.putExtra("friendName", viewHolder.getName());
                         startActivity(friendIntent);
+                    }
+                });
+
+                viewHolder.view.setOnLongClickListener(new View.OnLongClickListener()
+                {
+                    @Override
+                    public boolean onLongClick(View v)
+                    {
+                        ImageButton btnDelete = viewHolder.view.findViewById(R.id.button_delete);
+
+                        if(btnDelete.getVisibility() == View.VISIBLE)
+                            btnDelete.setVisibility(View.GONE);
+                        else
+                        {
+                            btnDelete.setVisibility(View.VISIBLE);
+                            btnDelete.setOnClickListener(new View.OnClickListener()
+                            {
+                                @Override
+                                public void onClick(View v)
+                                {   //deleting friend from currentUsers friends list
+                                    database.child("Friends").child(currentUid).child(friendID).setValue(null);
+
+                                    //deleting currentUser from friends friend list
+                                    database.child("Friends").child(friendID).child(currentUid).setValue(null);
+                                }
+                            });
+                        }
+                        return true;
                     }
                 });
             }

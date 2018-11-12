@@ -7,9 +7,12 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.ColorFilter;
+import android.graphics.Matrix;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -20,6 +23,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -27,6 +31,7 @@ import android.widget.Toast;
 
 import com.example.jon.eventpro.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -53,7 +58,7 @@ public class ProfileSettingsActivity extends AppCompatActivity
 
     public static final int PICK_IMAGE = 1;
     public static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 2;
-    private DatabaseReference database;
+    private DatabaseReference usersDatabase;
     private FirebaseUser currentUser;
     private ProgressDialog saveDialog, uploadImageDialog;
     private EditText displayName, userLocation, userAbout;
@@ -69,7 +74,7 @@ public class ProfileSettingsActivity extends AppCompatActivity
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         String currentUid = currentUser.getUid();
 
-        database = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUid);
+        usersDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUid);
         imageStorage = FirebaseStorage.getInstance().getReference();
 
 
@@ -90,8 +95,8 @@ public class ProfileSettingsActivity extends AppCompatActivity
         userAbout = findViewById(R.id.et_about);
 
 
-        database = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUid);
-        database.addValueEventListener(new ValueEventListener()
+        usersDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUid);
+        usersDatabase.addValueEventListener(new ValueEventListener()
         {   //populating editTexts with current data from database
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot)
@@ -133,9 +138,9 @@ public class ProfileSettingsActivity extends AppCompatActivity
                 if(TextUtils.isEmpty(about))
                     about = "Nothing here yet!";
 
-                database.child("name").setValue(name);
-                database.child("location").setValue(location);
-                database.child("about").setValue(about).addOnCompleteListener(new OnCompleteListener<Void>()
+                usersDatabase.child("name").setValue(name);
+                usersDatabase.child("location").setValue(location);
+                usersDatabase.child("about").setValue(about).addOnCompleteListener(new OnCompleteListener<Void>()
                 {
                     @Override
                     public void onComplete(@NonNull Task<Void> task)
@@ -196,41 +201,72 @@ public class ProfileSettingsActivity extends AppCompatActivity
 
             Uri imageUri = data.getData();
 
-            final File thumb_filepath = new File(getRealPathFromUri(this, imageUri));
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            final StorageReference image_filepath = imageStorage.child("profile_images").child(currentUser.getUid() + ".jpg");
+            final StorageReference thumbnail_filepath = imageStorage.child("profile_images").child("thumbnails").child(currentUser.getUid() + ".jpg");
+
+            //getting full-res image bitmap
+            File imageFile = new File(getRealPathFromUri(this, imageUri));
+            String imagePath = imageFile.getAbsolutePath();
+            Bitmap imageBitmap = BitmapFactory.decodeFile(imagePath);
             try
-            {
-                Bitmap thumb_bitmap = new Compressor(this)
-                        .setQuality(80)
-                        .setMaxWidth(200)
-                        .setMaxHeight(200)
-                        .compressToBitmap(thumb_filepath);
-                thumb_bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            {   //to make sure photo stays in the correct orientation
+                ExifInterface exif = new ExifInterface(imageFile.getAbsolutePath());
+                int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, 1);
+                Matrix matrix = new Matrix();
+
+                if(orientation == ExifInterface.ORIENTATION_ROTATE_90)
+                    matrix.postRotate(90);
+                else if(orientation == ExifInterface.ORIENTATION_ROTATE_180)
+                    matrix.postRotate(180);
+                else if(orientation == ExifInterface.ORIENTATION_ROTATE_270)
+                    matrix.postRotate(270);
+
+                imageBitmap = Bitmap.createBitmap(imageBitmap, 0, 0, imageBitmap.getWidth(), imageBitmap.getHeight(), matrix, true); // rotating bitmap
             }
-            catch (IOException e)
+            catch(Exception e)
             {
                 Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
-            final byte[] thumb_byte = baos.toByteArray();
+
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            byte[] image_data = baos.toByteArray();
+
+            //getting thumbnail bitmap
+            baos = new ByteArrayOutputStream();
+            try
+            {
+                Bitmap thumbBitmap = new Compressor(this)
+                        .setQuality(80)
+                        .setMaxWidth(200)
+                        .setMaxHeight(200)
+                        .compressToBitmap(imageFile);
+                thumbBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+            final byte[] thumb_data = baos.toByteArray();
 
 
-            final StorageReference thumbnail_filepath = imageStorage.child("profile_images").child("thumbnails").child(currentUser.getUid() + ".jpg");
-            final StorageReference filepath = imageStorage.child("profile_images").child(currentUser.getUid() + ".jpg");
-            filepath.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>()
+            //uploading full-res image and thumbnail image to firebase
+            UploadTask imageUploadTask = image_filepath.putBytes(image_data);
+            imageUploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>()
             {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot)
                 {
-                    filepath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
+                    image_filepath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
                     {
                         @Override
                         public void onSuccess(Uri uri)
                         {
-                            String downloadUrl = uri.toString();
+                            String imageDownloadUrl = uri.toString();
+                            usersDatabase.child("image").setValue(imageDownloadUrl);
 
-
-                            UploadTask uploadTask = thumbnail_filepath.putBytes(thumb_byte);
-                            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>()
+                            UploadTask thumbUploadTask = thumbnail_filepath.putBytes(thumb_data);
+                            thumbUploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>()
                             {
                                 @Override
                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot)
@@ -241,22 +277,18 @@ public class ProfileSettingsActivity extends AppCompatActivity
                                         public void onSuccess(Uri uri)
                                         {
                                             String thumbDownloadUrl = uri.toString();
+                                            usersDatabase.child("thumb_image").setValue(thumbDownloadUrl);
 
-                                            database.child("thumb_image").setValue(thumbDownloadUrl);
+                                            uploadImageDialog.dismiss();
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener()
+                                    {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e)
+                                        {
+                                            Toast.makeText(ProfileSettingsActivity.this, "There was an error uploading your image. Please try again.", Toast.LENGTH_SHORT).show();
                                         }
                                     });
-                                }
-                            });
-
-
-                            database.child("image").setValue(downloadUrl).addOnCompleteListener(new OnCompleteListener<Void>()
-                            {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task)
-                                {
-                                    uploadImageDialog.dismiss();
-                                    if(!task.isSuccessful())
-                                        Toast.makeText(ProfileSettingsActivity.this, "There was an error uploading your image. please try again.", Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }
@@ -265,22 +297,6 @@ public class ProfileSettingsActivity extends AppCompatActivity
             });
         }
     }
-
-    public static String getRealPathFromUri(Context context, Uri contentUri) {
-        Cursor cursor = null;
-        try {
-            String[] proj = { MediaStore.Images.Media.DATA };
-            cursor = context.getContentResolver().query(contentUri, proj, null, null, null);
-            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            cursor.moveToFirst();
-            return cursor.getString(column_index);
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-        }
-    }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
@@ -296,11 +312,28 @@ public class ProfileSettingsActivity extends AppCompatActivity
                 }
                 else
                 {
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
+                    //permission denied
                 }
                 return;
             }
+        }
+    }
+
+    public static String getRealPathFromUri(Context context, Uri contentUri)
+    {
+        Cursor cursor = null;
+        try
+        {
+            String[] proj = { MediaStore.Images.Media.DATA };
+            cursor = context.getContentResolver().query(contentUri, proj, null, null, null);
+            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            cursor.moveToFirst();
+            return cursor.getString(column_index);
+        }
+        finally
+        {
+            if (cursor != null)
+                cursor.close();
         }
     }
 }

@@ -40,4 +40,5 @@
     <string name="signin_success">Hello, </string>
     <string name="signout_failed">unable to sign out</string>
     <string name="signout_success">signed out</string>
+    <string name="prompt_enter_message">Enter message</string>
 </resources>
