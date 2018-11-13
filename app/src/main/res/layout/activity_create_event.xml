@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:focusableInTouchMode="true"
-    tools:context=".java.ui.CreateEventActivity">
+    tools:context=".ui.activities.CreateEventActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".java.ui.EventActivity">
+    tools:context=".ui.activities.EventActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -193,7 +193,7 @@
 
                 <fragment
                     android:id="@+id/map"
-                    android:name="com.example.jon.eventpro.java.ui.MapFragment"
+                    android:name="com.example.jon.eventpro.ui.fragments.MapFragment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </FrameLayout>

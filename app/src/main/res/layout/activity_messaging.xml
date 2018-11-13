@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/light_gray"
     android:focusableInTouchMode="true"
-    tools:context=".java.ui.MessagingActivity">
+    tools:context=".ui.activities.MessagingActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
