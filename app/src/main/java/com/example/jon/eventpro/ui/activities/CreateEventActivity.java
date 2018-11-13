@@ -1,4 +1,4 @@
-package com.example.jon.eventpro.java.ui;
+package com.example.jon.eventpro.ui.activities;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;

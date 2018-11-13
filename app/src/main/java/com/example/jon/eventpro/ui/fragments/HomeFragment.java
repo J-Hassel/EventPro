@@ -1,4 +1,4 @@
-package com.example.jon.eventpro.java.ui;
+package com.example.jon.eventpro.ui.fragments;
 
 
 import android.content.Intent;
@@ -21,7 +21,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.jon.eventpro.R;
-import com.example.jon.eventpro.java.Event;
+import com.example.jon.eventpro.models.Event;
+import com.example.jon.eventpro.ui.activities.CreateEventActivity;
+import com.example.jon.eventpro.ui.activities.EventActivity;
+import com.example.jon.eventpro.ui.activities.InformationActivity;
+import com.example.jon.eventpro.ui.activities.LoginActivity;
+import com.example.jon.eventpro.ui.activities.ProfileActivity;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -149,7 +154,7 @@ public class HomeFragment extends Fragment
         public void setImage(String image)
         {
             ImageView eventImage = view.findViewById(R.id.event_image);
-            Picasso.get().load(image).placeholder(R.drawable.testing2).into(eventImage);
+            Picasso.get().load(image).placeholder(R.drawable.default_event_image).into(eventImage);
         }
 
         public void setTitle(String title)

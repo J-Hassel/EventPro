@@ -1,6 +1,5 @@
-package com.example.jon.eventpro.java;
+package com.example.jon.eventpro.other;
 
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -10,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.jon.eventpro.R;
+import com.example.jon.eventpro.models.Message;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -96,7 +96,7 @@ public class MessageRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     private void configureReceiverViewHolder(ReceiverViewHolder viewHolder, int position, String message, String image)
     {
-        Picasso.get().load(image).placeholder(R.drawable.default_profile_pic).into(viewHolder.friendImage);
+        Picasso.get().load(image).placeholder(R.drawable.default_profile_image).into(viewHolder.friendImage);
         viewHolder.messageText.setText(message);
     }
 

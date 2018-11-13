@@ -1,4 +1,4 @@
-package com.example.jon.eventpro.java.ui;
+package com.example.jon.eventpro.ui.activities;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -11,6 +11,9 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.example.jon.eventpro.R;
+import com.example.jon.eventpro.ui.fragments.FriendsFragment;
+import com.example.jon.eventpro.ui.fragments.HomeFragment;
+import com.example.jon.eventpro.ui.fragments.SearchFragment;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 

@@ -1,4 +1,4 @@
-package com.example.jon.eventpro.java.ui;
+package com.example.jon.eventpro.ui.activities;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,7 +12,6 @@ import android.widget.Toast;
 import com.example.jon.eventpro.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -73,7 +72,7 @@ public class UserActivity extends AppCompatActivity
                 String userStatus = dataSnapshot.child("status").getValue().toString();
 
 
-                Picasso.get().load(userImage).placeholder(R.drawable.default_profile_pic).into(image);
+                Picasso.get().load(userImage).placeholder(R.drawable.default_profile_image).into(image);
                 name.setText(userName);
                 location.setText(userLocation);
                 status.setText(userStatus);

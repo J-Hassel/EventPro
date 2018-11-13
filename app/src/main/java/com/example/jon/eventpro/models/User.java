@@ -1,6 +1,4 @@
-package com.example.jon.eventpro.java;
-
-import java.util.ArrayList;
+package com.example.jon.eventpro.models;
 
 public class User
 {

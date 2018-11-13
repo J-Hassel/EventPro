@@ -12,30 +12,32 @@
         android:required="true" />
 
     <application
-        android:name=".java.EventPro"
+        android:name=".other.EventPro"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".java.ui.MainActivity">
+
+
+        <activity android:name=".ui.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".java.ui.InformationActivity" />
-        <activity android:name=".java.ui.ProfileActivity" />
-        <activity android:name=".java.ui.ProfileSettingsActivity" />
-        <activity android:name=".java.ui.EventActivity" />
-        <activity android:name=".java.ui.CreateEventActivity" />
-        <activity android:name=".java.ui.MessagingActivity" />
-        <activity android:name=".java.ui.LoginActivity" />
-        <activity android:name=".java.ui.RegisterActivity" />
-        <activity android:name=".java.ui.AddFriendsActivity" />
-        <activity android:name=".java.ui.UserActivity" />
+        <activity android:name=".ui.activities.InformationActivity" />
+        <activity android:name=".ui.activities.ProfileActivity" />
+        <activity android:name=".ui.activities.ProfileSettingsActivity" />
+        <activity android:name=".ui.activities.EventActivity" />
+        <activity android:name=".ui.activities.CreateEventActivity" />
+        <activity android:name=".ui.activities.MessagingActivity" />
+        <activity android:name=".ui.activities.LoginActivity" />
+        <activity android:name=".ui.activities.RegisterActivity" />
+        <activity android:name=".ui.activities.AddFriendsActivity" />
+        <activity android:name=".ui.activities.UserActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

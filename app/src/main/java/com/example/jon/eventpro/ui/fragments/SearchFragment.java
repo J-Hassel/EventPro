@@ -1,28 +1,22 @@
-package com.example.jon.eventpro.java.ui;
+package com.example.jon.eventpro.ui.fragments;
 
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.SearchView;
-import android.widget.TextView;
 
 import com.example.jon.eventpro.R;
-import com.example.jon.eventpro.java.Event;
+import com.example.jon.eventpro.models.Event;
+import com.example.jon.eventpro.ui.activities.EventActivity;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
 
 
 public class SearchFragment extends Fragment

@@ -1,4 +1,4 @@
-package com.example.jon.eventpro.java.ui;
+package com.example.jon.eventpro.ui.activities;
 
 import android.Manifest;
 import android.app.ProgressDialog;
@@ -23,7 +23,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -48,7 +47,6 @@ import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import id.zelory.compressor.Compressor;
@@ -106,7 +104,7 @@ public class ProfileSettingsActivity extends AppCompatActivity
                 String location = dataSnapshot.child("location").getValue().toString();
                 String about = dataSnapshot.child("about").getValue().toString();
 
-                Picasso.get().load(image).placeholder(R.drawable.default_profile_pic).into(btnSelectImage);
+                Picasso.get().load(image).placeholder(R.drawable.default_profile_image).into(btnSelectImage);
                 displayName.setText(name);
                 userLocation.setText(location);
                 userAbout.setText(about);

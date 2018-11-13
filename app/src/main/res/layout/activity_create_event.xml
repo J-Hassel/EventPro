@@ -50,7 +50,7 @@
                 android:foreground="@drawable/ic_add_photo"
                 android:foregroundGravity="center"
                 android:scaleType="centerCrop"
-                android:src="@drawable/testing2" />
+                android:src="@drawable/default_event_image" />
 
             <TextView
                 android:id="@+id/textView"

@@ -1,4 +1,4 @@
-package com.example.jon.eventpro.java.ui;
+package com.example.jon.eventpro.ui.activities;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.example.jon.eventpro.R;
-import com.example.jon.eventpro.java.Event;
+import com.example.jon.eventpro.models.Event;
 
 public class EventActivity extends AppCompatActivity
 {

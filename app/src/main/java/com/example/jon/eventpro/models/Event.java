@@ -1,6 +1,4 @@
-package com.example.jon.eventpro.java;
-
-import com.example.jon.eventpro.R;
+package com.example.jon.eventpro.models;
 
 public class Event
 {

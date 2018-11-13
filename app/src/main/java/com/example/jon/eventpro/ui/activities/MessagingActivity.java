@@ -1,4 +1,4 @@
-package com.example.jon.eventpro.java.ui;
+package com.example.jon.eventpro.ui.activities;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,8 +14,8 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.jon.eventpro.R;
-import com.example.jon.eventpro.java.Message;
-import com.example.jon.eventpro.java.MessageRecyclerAdapter;
+import com.example.jon.eventpro.models.Message;
+import com.example.jon.eventpro.other.MessageRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;

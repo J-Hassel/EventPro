@@ -1,4 +1,4 @@
-package com.example.jon.eventpro.java;
+package com.example.jon.eventpro.other;
 
 import android.app.Application;
 import com.google.firebase.database.FirebaseDatabase;

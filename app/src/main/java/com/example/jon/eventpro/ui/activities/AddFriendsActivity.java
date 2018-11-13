@@ -1,4 +1,4 @@
-package com.example.jon.eventpro.java.ui;
+package com.example.jon.eventpro.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,10 +11,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.jon.eventpro.R;
-import com.example.jon.eventpro.java.User;
+import com.example.jon.eventpro.models.User;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
@@ -88,7 +87,6 @@ public class AddFriendsActivity extends AppCompatActivity
                     {
                         Intent userIntent = new Intent(AddFriendsActivity.this, UserActivity.class);
                         userIntent.putExtra("userID", userID);
-                        finish();
                         startActivity(userIntent);
                     }
                 });
@@ -112,7 +110,7 @@ public class AddFriendsActivity extends AppCompatActivity
         public void setImage(String image)
         {
             CircleImageView userImage = view.findViewById(R.id.user_image);
-            Picasso.get().load(image).placeholder(R.drawable.default_profile_pic).into(userImage);
+            Picasso.get().load(image).placeholder(R.drawable.default_profile_image).into(userImage);
         }
 
         public void setDisplayName(String name)

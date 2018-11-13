@@ -1,4 +1,4 @@
-package com.example.jon.eventpro.java.ui;
+package com.example.jon.eventpro.ui.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,10 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.jon.eventpro.R;
-import com.example.jon.eventpro.java.Friend;
+import com.example.jon.eventpro.models.Friend;
+import com.example.jon.eventpro.ui.activities.AddFriendsActivity;
+import com.example.jon.eventpro.ui.activities.MessagingActivity;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -171,7 +172,7 @@ public class FriendsFragment extends Fragment
         public void setImage(String thumbImage)
         {
             CircleImageView friendImage = view.findViewById(R.id.user_image);
-            Picasso.get().load(thumbImage).placeholder(R.drawable.default_profile_pic).into(friendImage);
+            Picasso.get().load(thumbImage).placeholder(R.drawable.default_profile_image).into(friendImage);
         }
 
         public void setName(String name)

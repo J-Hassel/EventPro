@@ -1,4 +1,4 @@
-package com.example.jon.eventpro.java.ui;
+package com.example.jon.eventpro.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -72,7 +72,7 @@ public class ProfileActivity extends AppCompatActivity
 
                 if(!image.equals("default"))
                 {
-                    Picasso.get().load(image).placeholder(R.drawable.default_profile_pic).into(profileImage);
+                    Picasso.get().load(image).placeholder(R.drawable.default_profile_image).into(profileImage);
                 }
                 displayName.setText(name);
                 userLocation.setText(location);

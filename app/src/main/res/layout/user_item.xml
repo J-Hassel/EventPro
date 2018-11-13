@@ -14,7 +14,7 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/default_profile_pic" />
+        android:src="@drawable/default_profile_image" />
 
 
     <TextView

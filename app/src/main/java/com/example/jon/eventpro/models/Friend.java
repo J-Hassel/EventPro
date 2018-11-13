@@ -1,4 +1,4 @@
-package com.example.jon.eventpro.java;
+package com.example.jon.eventpro.models;
 
 public class Friend
 {
