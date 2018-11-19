@@ -19,6 +19,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -27,9 +29,6 @@ public class ProfileActivity extends AppCompatActivity
 {
     private CircleImageView profileImage;
     private TextView displayName, userLocation, userAbout;
-    private DatabaseReference userDatabase;
-    private FirebaseUser currentUser;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -58,23 +57,21 @@ public class ProfileActivity extends AppCompatActivity
             }
         });
 
-
         profileImage = findViewById(R.id.profile_image);
         displayName = findViewById(R.id.tv_name);
         userLocation = findViewById(R.id.tv_location);
         userAbout = findViewById(R.id.tv_about);
 
-        currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        String currentUid = currentUser.getUid();
+        String currentUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        userDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUid);
+        DatabaseReference userDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUid);
         userDatabase.keepSynced(true);  //for offline capabilities
         userDatabase.addValueEventListener(new ValueEventListener()
         {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot)
             {
-                String image = dataSnapshot.child("image").getValue().toString();
+                final String image = dataSnapshot.child("image").getValue().toString();
                 String name = dataSnapshot.child("name").getValue().toString();
                 String location = dataSnapshot.child("location").getValue().toString();
                 String about = dataSnapshot.child("about").getValue().toString();
@@ -84,7 +81,20 @@ public class ProfileActivity extends AppCompatActivity
 
                 if(!image.equals("default"))
                 {
-                    Picasso.get().load(image).placeholder(R.drawable.default_profile_image).into(profileImage);
+                    Picasso.get().load(image).networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.drawable.default_profile_image).into(profileImage, new Callback()
+                    {
+                        @Override
+                        public void onSuccess()
+                        {
+
+                        }
+
+                        @Override
+                        public void onError(Exception e)
+                        {
+                            Picasso.get().load(image).placeholder(R.drawable.default_profile_image).into(profileImage);
+                        }
+                    });
                 }
                 displayName.setText(name);
                 userLocation.setText(location);

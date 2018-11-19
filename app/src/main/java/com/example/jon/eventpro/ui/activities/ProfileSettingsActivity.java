@@ -58,7 +58,7 @@ public class ProfileSettingsActivity extends AppCompatActivity
     public static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 2;
     private DatabaseReference usersDatabase;
     private FirebaseUser currentUser;
-    private ProgressDialog saveDialog, uploadImageDialog;
+    private ProgressDialog uploadImageDialog;
     private EditText displayName, userLocation, userAbout;
     private CircleImageView btnSelectImage;
     private StorageReference imageStorage;
@@ -73,6 +73,7 @@ public class ProfileSettingsActivity extends AppCompatActivity
         String currentUid = currentUser.getUid();
 
         usersDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUid);
+        usersDatabase.keepSynced(true);     //for offline capabilities
         imageStorage = FirebaseStorage.getInstance().getReference();
 
 
@@ -123,11 +124,6 @@ public class ProfileSettingsActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                saveDialog = new ProgressDialog(ProfileSettingsActivity.this);
-                saveDialog.setTitle("Saving Changes");
-                saveDialog.setMessage("Please wait while we update your profile!");
-                saveDialog.setCanceledOnTouchOutside(false);
-                saveDialog.show();
 
                 String name = displayName.getText().toString();
                 String location = userLocation.getText().toString();
@@ -145,7 +141,7 @@ public class ProfileSettingsActivity extends AppCompatActivity
                     {
                         if(task.isSuccessful())
                         {
-                            saveDialog.dismiss();
+                            Toast.makeText(ProfileSettingsActivity.this, "Changes saved!", Toast.LENGTH_SHORT).show();
                             finish();
                         }
                         else

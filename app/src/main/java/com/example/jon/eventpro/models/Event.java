@@ -3,20 +3,11 @@ package com.example.jon.eventpro.models;
 public class Event
 {
 
-    private int imageID;
     private String image, title, date, time, location, address, price, about;
 
     public Event()
     {
 
-    }
-
-    public Event(int imageID, String title, String date, String location)
-    {
-        this.imageID = imageID;
-        this.title = title;
-        this.date = date;
-        this.location = location;
     }
 
     public Event(String image, String title, String date, String time, String location, String address, String price, String about)
