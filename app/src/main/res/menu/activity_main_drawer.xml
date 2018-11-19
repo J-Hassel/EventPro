@@ -15,6 +15,11 @@
             android:id="@+id/log_out"
             android:icon="@drawable/ic_logout"
             android:title="Log Out"/>
+
+        <item
+            android:id="@+id/refresh"
+            android:icon="@drawable/ic_logout"
+            android:title="temp refresh"/>
     </group>
 
 </menu>

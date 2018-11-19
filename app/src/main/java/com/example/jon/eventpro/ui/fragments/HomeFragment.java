@@ -223,6 +223,14 @@ public class HomeFragment extends Fragment
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(getActivity(), LoginActivity.class));
                 break;
+
+            case R.id.refresh:
+                /*
+
+                ADD CODE HERE
+
+                 */
+                break;
         }
 
         //menu items will not be highlighted
