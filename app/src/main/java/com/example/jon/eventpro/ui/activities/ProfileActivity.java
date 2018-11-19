@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.jon.eventpro.R;
@@ -46,6 +47,17 @@ public class ProfileActivity extends AppCompatActivity
                 onBackPressed();
             }
         });
+
+        ImageButton btnSettings = findViewById(R.id.button_settings);
+        btnSettings.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                startActivity(new Intent(ProfileActivity.this, ProfileSettingsActivity.class));
+            }
+        });
+
 
         profileImage = findViewById(R.id.profile_image);
         displayName = findViewById(R.id.tv_name);
@@ -87,31 +99,32 @@ public class ProfileActivity extends AppCompatActivity
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_profile, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.profile_settings:
-                startActivity(new Intent(this, ProfileSettingsActivity.class));
-                return true;
-
-            case R.id.profile_sign_out:
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+//
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu)
+//    {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.menu_profile, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item)
+//    {
+//        // Handle item selection
+//        switch (item.getItemId()) {
+//            case R.id.profile_settings:
+//                startActivity(new Intent(this, ProfileSettingsActivity.class));
+//                return true;
+//
+//            case R.id.profile_sign_out:
+//                FirebaseAuth.getInstance().signOut();
+//                startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
+//                return true;
+//
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
 
 }
