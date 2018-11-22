@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.jon.eventpro.R;
 import com.example.jon.eventpro.models.Event;
@@ -49,6 +50,19 @@ public class EventActivity extends AppCompatActivity
 
             }
         });
+
+        TextView tv_title = findViewById(R.id.tv_title);
+        String text;
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null)
+                text = null;
+            else
+                text = extras.getString("eventID");
+        } else {
+            text = (String) savedInstanceState.getSerializable("eventID");
+        }
+        tv_title.setText(text);
 
         toolbar = findViewById(R.id.toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener()

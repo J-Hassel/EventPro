@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.example.jon.eventpro.R;
 import com.example.jon.eventpro.models.Event;
 import com.example.jon.eventpro.ui.activities.CreateEventActivity;
+import com.example.jon.eventpro.ui.activities.CurlActivity;
 import com.example.jon.eventpro.ui.activities.EventActivity;
 import com.example.jon.eventpro.ui.activities.InformationActivity;
 import com.example.jon.eventpro.ui.activities.LoginActivity;
@@ -225,11 +226,7 @@ public class HomeFragment extends Fragment
                 break;
 
             case R.id.refresh:
-                /*
-
-                ADD CODE HERE
-
-                 */
+                startActivity(new Intent(getActivity(), CurlActivity.class));
                 break;
         }
 

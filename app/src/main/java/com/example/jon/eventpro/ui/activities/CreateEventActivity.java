@@ -147,7 +147,7 @@ public class CreateEventActivity extends AppCompatActivity
         {
             e.printStackTrace();
         }
-        sdf.applyPattern("EEEE, MMMM d");
+        sdf.applyPattern("EEEE, MMMM d, yyyy");
 
         return sdf.format(date);
     }
