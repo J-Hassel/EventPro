@@ -35,6 +35,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class HomeFragment extends Fragment
 {
     private FirebaseAuth auth;
@@ -167,13 +171,30 @@ public class HomeFragment extends Fragment
         public void setDate(String date)
         {
             TextView eventDate = view.findViewById(R.id.event_date);
-            eventDate.setText(date);
+            eventDate.setText(convertDateFormat(date));
         }
 
         public void setLocation(String location)
         {
             TextView eventLocation = view.findViewById(R.id.event_location);
             eventLocation.setText(location);
+        }
+
+        private String convertDateFormat(String date)
+        {
+            String new_format = "MM\ndd";
+            String old_format = "EEEE, MMMM d, yyyy";
+
+            SimpleDateFormat sdf = new SimpleDateFormat(old_format);
+            try {
+                Date d = sdf.parse(date);
+                sdf.applyPattern(new_format);
+                return sdf.format(d);
+            } catch (ParseException e)
+            {
+                e.printStackTrace();
+            }
+            return null;
         }
     }
     

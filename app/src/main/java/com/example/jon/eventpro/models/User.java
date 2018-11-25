@@ -2,18 +2,18 @@ package com.example.jon.eventpro.models;
 
 public class User
 {
-    public String image, name, locaton, about, status, thumb_image;
+    public String image, name, location, about, status, thumb_image;
 
     public User()
     {
 
     }
 
-    public User(String image, String name, String locaton, String about)
+    public User(String image, String name, String location, String about)
     {
         this.image = image;
         this.name = name;
-        this.locaton = locaton;
+        this.location = location;
         this.about = about;
     }
 
@@ -37,14 +37,14 @@ public class User
         this.name = name;
     }
 
-    public String getLocaton()
+    public String getLocation()
     {
-        return locaton;
+        return location;
     }
 
-    public void setLocaton(String locaton)
+    public void setLocation(String location)
     {
-        this.locaton = locaton;
+        this.location = location;
     }
 
     public String getAbout()
