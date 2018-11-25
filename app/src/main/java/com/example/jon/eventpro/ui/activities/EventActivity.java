@@ -16,7 +16,6 @@ import com.example.jon.eventpro.models.Event;
 public class EventActivity extends AppCompatActivity
 {
     private Toolbar toolbar;
-    private Event event;
     private FloatingActionButton btnDirections;
     private ImageButton btnGoing;
     private boolean isGoing = false;//TODO: get isGoing from user
@@ -27,8 +26,7 @@ public class EventActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
 
-        // Initializing event
-        //event = new Event(params, params, etc);
+
 
 
         btnGoing = findViewById(R.id.button_going);

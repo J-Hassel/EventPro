@@ -33,6 +33,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
@@ -60,7 +62,6 @@ public class HomeFragment extends Fragment
         //user authentication
         auth = FirebaseAuth.getInstance();
         eventsDatabase = FirebaseDatabase.getInstance().getReference().child("Events");
-
         eventsDatabase.keepSynced(true);    //for offline capabilities
 
         Toolbar toolbar = view.findViewById(R.id.toolbar);
@@ -156,10 +157,24 @@ public class HomeFragment extends Fragment
         }
         
 
-        public void setImage(String image)
+        public void setImage(final String image)
         {
-            ImageView eventImage = view.findViewById(R.id.event_image);
-            Picasso.get().load(image).placeholder(R.drawable.default_event_image).into(eventImage);
+            final ImageView eventImage = view.findViewById(R.id.event_image);
+
+            Picasso.get().load(image).networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.drawable.default_event_image).into(eventImage, new Callback()
+            {
+                @Override
+                public void onSuccess()
+                {
+
+                }
+
+                @Override
+                public void onError(Exception e)
+                {
+                    Picasso.get().load(image).placeholder(R.drawable.default_event_image).into(eventImage);
+                }
+            });
         }
 
         public void setTitle(String title)
