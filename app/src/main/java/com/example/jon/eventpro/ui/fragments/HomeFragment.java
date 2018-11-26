@@ -197,7 +197,7 @@ public class HomeFragment extends Fragment
 
         private String convertDateFormat(String date)
         {
-            String new_format = "MM\ndd";
+            String new_format = "MMM\ndd";
             String old_format = "EEEE, MMMM d, yyyy";
 
             SimpleDateFormat sdf = new SimpleDateFormat(old_format);

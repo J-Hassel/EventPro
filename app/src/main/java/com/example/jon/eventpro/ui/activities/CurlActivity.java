@@ -1,11 +1,10 @@
 package com.example.jon.eventpro.ui.activities;
 
 import android.content.Intent;
-import android.os.AsyncTask;
+import android.net.Uri;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.example.jon.eventpro.models.Event;
 
@@ -37,7 +36,6 @@ public class CurlActivity extends AppCompatActivity {
     {
         String result, name, start_date, start_time, lat, lon, info, min_price, max_price, price_range, location;
         start_time = info = price_range = null;
-
         try {
             URL url = new URL(str);
             InputStreamReader is = new InputStreamReader(url.openStream(), "UTF-8");
@@ -81,7 +79,20 @@ public class CurlActivity extends AppCompatActivity {
                     price_range = min_price + '-' + max_price;
                     //System.out.println(price_range);
                 }
-                String image = "gs://plucky-shore-218700.appspot.com/event_images/testing2.jpg";
+                int index = 0;
+                JSONArray images = temp.getJSONArray("images");
+                for (int j = 0; j < images.length(); ++j)
+                {
+                    int width = images.getJSONObject(j).getInt("width");
+                    if (width == 1024)
+                    {
+                        index = j;
+                        break;
+                    }
+                }
+                String image_url = images.getJSONObject(index).getString("url");
+
+                String image  = image_url;
                 event_arr.add(new
                         Event(image, name, start_date, start_time, location, lat, lon, price_range, info));
             }
@@ -94,12 +105,10 @@ public class CurlActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-
         catch (Exception e)
         {
             System.out.println(e.getClass().getSimpleName());
         }
-
     }
 
     private String convertDateFormat(String date)
