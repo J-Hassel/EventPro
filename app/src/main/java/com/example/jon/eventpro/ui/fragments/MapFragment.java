@@ -65,11 +65,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap)
     {
         MapsInitializer.initialize(getContext());
-//
-//        mGoogleMap = googleMap;
 
         try
-        {
+        {//TODO: MAKE THIS EVENT SPECIFIC
             // Moving camera to location
             CameraPosition Location = CameraPosition.builder().target(getLocationFromAddress(getContext(),"459 W College Avenue, Tallahassee, FL 32301" )).zoom(14).build();
             googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(Location));

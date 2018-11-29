@@ -49,6 +49,22 @@ public class Event implements Parcelable
         this.lon = lon;
     }
 
+
+
+    public Event(String image, String title, String date, String time, String location, String address, String lat, String lon, String price, String about)
+    {
+        this.image = image;
+        this.title = title;
+        this.date = date;
+        this.time = time;
+        this.location = location;
+        this.address = address;
+        this.lat = lat;
+        this.lon = lon;
+        this.price = price;
+        this.about = about;
+    }
+
     public int describeContents() {
         return 0;
     }

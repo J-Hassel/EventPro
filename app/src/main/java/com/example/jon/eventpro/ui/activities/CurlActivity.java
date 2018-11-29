@@ -34,7 +34,7 @@ public class CurlActivity extends AppCompatActivity {
 
     private void getRequest (String str)
     {
-        String result, name, start_date, start_time, lat, lon, info, min_price, max_price, price_range, location;
+        String result, name, start_date, start_time, lat, lon, info, min_price, max_price, price_range, location, address;
         start_time = info = price_range = null;
         try {
             URL url = new URL(str);
@@ -61,17 +61,23 @@ public class CurlActivity extends AppCompatActivity {
                     start_time = convertTime(date.getString("localTime"));
                     //System.out.println(start_time);
                 }
+
                 JSONArray venues = temp.getJSONObject("_embedded").getJSONArray("venues");
                 location = venues.getJSONObject(0).getString("name");
+                address = venues.getJSONObject(0).getJSONObject("address").getString("line1");
                //System.out.println(location);
                 lat = venues.getJSONObject(0).getJSONObject("location").getString("latitude");
                 lon = venues.getJSONObject(0).getJSONObject("location").getString("longitude");
                 //System.out.println(lat);
                 //System.out.println(lon);
+
                 if (temp.has("info")) {
                     info = temp.getString("info");
                     //System.out.println(info);
                 }
+                else
+                    info = "No description was provided.";
+
                 if (temp.has("priceRanges")) {
                     JSONArray price = temp.getJSONArray("priceRanges");
                     min_price = Integer.toString(price.getJSONObject(0).getInt("min"));
@@ -79,6 +85,9 @@ public class CurlActivity extends AppCompatActivity {
                     price_range = min_price + '-' + max_price;
                     //System.out.println(price_range);
                 }
+                else
+                    price_range = "No price information was provided.";
+
                 int index = 0;
                 JSONArray images = temp.getJSONArray("images");
                 for (int j = 0; j < images.length(); ++j)
@@ -93,8 +102,7 @@ public class CurlActivity extends AppCompatActivity {
                 String image_url = images.getJSONObject(index).getString("url");
 
                 String image  = image_url;
-                event_arr.add(new
-                        Event(image, name, start_date, start_time, location, lat, lon, price_range, info));
+                event_arr.add(new Event(image, name, start_date, start_time, location, address, lat, lon, price_range, info));
             }
            // System.out.println(event_arr.size());
             System.out.println("Start write to database");
