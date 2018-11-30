@@ -28,7 +28,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfileActivity extends AppCompatActivity
 {
     private CircleImageView profileImage;
-    private TextView displayName, userLocation, userAbout;
+    private TextView displayName, userLocation, userStatus, userAbout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -60,6 +60,7 @@ public class ProfileActivity extends AppCompatActivity
         profileImage = findViewById(R.id.profile_image);
         displayName = findViewById(R.id.tv_name);
         userLocation = findViewById(R.id.tv_location);
+        userStatus = findViewById(R.id.tv_status);
         userAbout = findViewById(R.id.tv_about);
 
         String currentUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -76,11 +77,8 @@ public class ProfileActivity extends AppCompatActivity
                 String location = dataSnapshot.child("location").getValue().toString();
                 String about = dataSnapshot.child("about").getValue().toString();
                 String status = dataSnapshot.child("status").getValue().toString();
-                String thumb_image = dataSnapshot.child("thumb_image").getValue().toString();
 
-
-                if(!image.equals("default"))
-                {
+                if (!image.equals("default")) {
                     Picasso.get().load(image).networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.drawable.default_profile_image).into(profileImage, new Callback()
                     {
                         @Override
@@ -96,8 +94,10 @@ public class ProfileActivity extends AppCompatActivity
                         }
                     });
                 }
+
                 displayName.setText(name);
                 userLocation.setText(location);
+                userStatus.setText(status);
                 userAbout.setText(about);
             }
 
@@ -108,33 +108,4 @@ public class ProfileActivity extends AppCompatActivity
             }
         });
     }
-
-//
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu)
-//    {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_profile, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item)
-//    {
-//        // Handle item selection
-//        switch (item.getItemId()) {
-//            case R.id.profile_settings:
-//                startActivity(new Intent(this, ProfileSettingsActivity.class));
-//                return true;
-//
-//            case R.id.profile_sign_out:
-//                FirebaseAuth.getInstance().signOut();
-//                startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
-//                return true;
-//
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
-
 }

@@ -117,7 +117,7 @@ public class RegisterActivity extends AppCompatActivity
                     userMap.put("name", displayName);
                     userMap.put("location", "United States");
                     userMap.put("about", "Nothing here yet!");
-                    userMap.put("status", "Hello!");
+                    userMap.put("status", "Nothing here yet!");
                     userMap.put("thumb_image", "default");
 
 

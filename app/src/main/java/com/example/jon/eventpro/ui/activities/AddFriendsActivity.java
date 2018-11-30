@@ -72,7 +72,7 @@ public class AddFriendsActivity extends AppCompatActivity
 
                 viewHolder.setImage(model.getThumbImage());
                 viewHolder.setDisplayName(model.getName());
-                viewHolder.setStatus(model.getAbout());
+                viewHolder.setStatus(model.getStatus());
 
                 if(userID.equals(currentUid))
                 {   //bypasses the onclick listener, so you cannot add yourself

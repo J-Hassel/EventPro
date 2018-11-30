@@ -27,7 +27,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class UserActivity extends AppCompatActivity
 {
 
-    private TextView name, location, status;
+    private TextView name, location, status, about;
     private CircleImageView image;
     private DatabaseReference friendsDatabase;
     private String currentUid, userID;
@@ -58,6 +58,7 @@ public class UserActivity extends AppCompatActivity
         name = findViewById(R.id.tv_name);
         location = findViewById(R.id.tv_location);
         status = findViewById(R.id.tv_status);
+        about = findViewById(R.id.tv_about);
 
         userID = getIntent().getStringExtra("userID");
         DatabaseReference usersDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
@@ -70,13 +71,14 @@ public class UserActivity extends AppCompatActivity
                 String userName = dataSnapshot.child("name").getValue().toString();
                 String userLocation = dataSnapshot.child("location").getValue().toString();
                 String userStatus = dataSnapshot.child("status").getValue().toString();
+                String userAbout = dataSnapshot.child("about").getValue().toString();
 
 
                 Picasso.get().load(userImage).placeholder(R.drawable.default_profile_image).into(image);
                 name.setText(userName);
                 location.setText(userLocation);
                 status.setText(userStatus);
-
+                about.setText(userAbout);
             }
 
             @Override

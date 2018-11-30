@@ -59,7 +59,7 @@ public class ProfileSettingsActivity extends AppCompatActivity
     private DatabaseReference usersDatabase;
     private FirebaseUser currentUser;
     private ProgressDialog uploadImageDialog;
-    private EditText displayName, userLocation, userAbout;
+    private EditText displayName, userLocation, userStatus, userAbout;
     private CircleImageView btnSelectImage;
     private StorageReference imageStorage;
 
@@ -91,6 +91,7 @@ public class ProfileSettingsActivity extends AppCompatActivity
         btnSelectImage = findViewById(R.id.button_select_image);
         displayName = findViewById(R.id.et_name);
         userLocation = findViewById(R.id.et_location);
+        userStatus = findViewById(R.id.et_status);
         userAbout = findViewById(R.id.et_about);
 
 
@@ -103,11 +104,13 @@ public class ProfileSettingsActivity extends AppCompatActivity
                 String image = dataSnapshot.child("image").getValue().toString();
                 String name = dataSnapshot.child("name").getValue().toString();
                 String location = dataSnapshot.child("location").getValue().toString();
+                String status = dataSnapshot.child("status").getValue().toString();
                 String about = dataSnapshot.child("about").getValue().toString();
 
                 Picasso.get().load(image).placeholder(R.drawable.default_profile_image).into(btnSelectImage);
                 displayName.setText(name);
                 userLocation.setText(location);
+                userStatus.setText(status);
                 userAbout.setText(about);
             }
 
@@ -127,13 +130,18 @@ public class ProfileSettingsActivity extends AppCompatActivity
 
                 String name = displayName.getText().toString();
                 String location = userLocation.getText().toString();
+                String status = userStatus.getText().toString();
                 String about = userAbout.getText().toString();
+
+                if(TextUtils.isEmpty(status))
+                    status = "Nothing here yet!";
 
                 if(TextUtils.isEmpty(about))
                     about = "Nothing here yet!";
 
                 usersDatabase.child("name").setValue(name);
                 usersDatabase.child("location").setValue(location);
+                usersDatabase.child("status").setValue(status);
                 usersDatabase.child("about").setValue(about).addOnCompleteListener(new OnCompleteListener<Void>()
                 {
                     @Override
