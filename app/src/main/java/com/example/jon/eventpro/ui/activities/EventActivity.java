@@ -1,6 +1,9 @@
 package com.example.jon.eventpro.ui.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,12 +18,23 @@ import android.widget.Toast;
 
 import com.example.jon.eventpro.R;
 import com.example.jon.eventpro.models.Event;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
+import java.io.IOException;
+import java.util.List;
 
 public class EventActivity extends AppCompatActivity
 {
@@ -47,6 +61,7 @@ public class EventActivity extends AppCompatActivity
         price = findViewById(R.id.tv_price);
         about = findViewById(R.id.tv_about);
         address2 = findViewById(R.id.tv_address2);
+
 
         eventID = getIntent().getStringExtra("eventID");
         eventsDatabase = FirebaseDatabase.getInstance().getReference().child("Events").child(eventID);
@@ -122,6 +137,10 @@ public class EventActivity extends AppCompatActivity
             }
         });
 
+//        GoogleMap googleMap = ((SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.map)).getMapAsync(MapFragment.this);
+
+
+
 
         FloatingActionButton btnDirections = findViewById(R.id.fab_directions);
         btnDirections.setOnClickListener(new View.OnClickListener()
@@ -134,4 +153,6 @@ public class EventActivity extends AppCompatActivity
             }
         });
     }
+
+
 }

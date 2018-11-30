@@ -27,8 +27,8 @@ import java.util.List;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback
 {
-    GoogleMap mGoogleMap;
     MapView mapView;
+    GoogleMap googleMap;
 
     public MapFragment()
     {
@@ -40,10 +40,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_map, container, false);
-
-
-        return view;
+        return inflater.inflate(R.layout.fragment_map, container, false);
     }
 
     @Override
@@ -54,7 +51,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback
         mapView = view.findViewById(R.id.map_fragment);
         if(mapView != null)
         {
-            mapView.onCreate(null);
+            mapView.onCreate(savedInstanceState);
             mapView.onResume();
             mapView.getMapAsync(this);
         }
@@ -62,18 +59,20 @@ public class MapFragment extends Fragment implements OnMapReadyCallback
 
 
     @Override
-    public void onMapReady(GoogleMap googleMap)
+    public void onMapReady(GoogleMap map)
     {
+        String address = "459 W College Avenue, Tallahassee, FL 32301";
         MapsInitializer.initialize(getContext());
+        googleMap = map;
 
         try
         {//TODO: MAKE THIS EVENT SPECIFIC
             // Moving camera to location
-            CameraPosition Location = CameraPosition.builder().target(getLocationFromAddress(getContext(),"459 W College Avenue, Tallahassee, FL 32301" )).zoom(14).build();
+            CameraPosition Location = CameraPosition.builder().target(getLocationFromAddress(getContext(),address)).zoom(14).build();
             googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(Location));
 
             // Marker set on address
-            googleMap.addMarker(new MarkerOptions().position(getLocationFromAddress(getContext(),"459 W College Avenue, Tallahassee, FL 32301" )));
+            googleMap.addMarker(new MarkerOptions().position(getLocationFromAddress(getContext(),address)));
 
 
         }

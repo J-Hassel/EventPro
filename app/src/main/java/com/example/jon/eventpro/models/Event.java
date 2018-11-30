@@ -15,42 +15,6 @@ public class Event implements Parcelable
 
     }
 
-    public Event(int imageID, String title, String date, String location)
-    {
-        this.imageID = imageID;
-        this.title = title;
-        this.date = date;
-        this.location = location;
-    }
-
-    public Event(String image, String title, String date, String time, String location, String address, String price, String about)
-    {
-        this.image = image;
-        this.title = title;
-        this.date = date;
-        this.time = time;
-        this.location = location;
-        this.address = address;
-        this.price = price;
-        this.about = about;
-    }
-
-    public Event(String image, String title, String date, String time, String location, String lat, String lon, String price, String about)
-    {
-        this.image = image;
-        this.title = title;
-        this.date = date;
-        this.time = time;
-        this.location = location;
-        this.address = null;
-        this.price = price;
-        this.about = about;
-        this.lat = lat;
-        this.lon = lon;
-    }
-
-
-
     public Event(String image, String title, String date, String time, String location, String address, String lat, String lon, String price, String about)
     {
         this.image = image;
@@ -69,7 +33,8 @@ public class Event implements Parcelable
         return 0;
     }
 
-    public void writeToParcel (Parcel out, int flags){
+    public void writeToParcel (Parcel out, int flags)
+    {
         out.writeString(image);
         out.writeString(title);
         out.writeString(date);
@@ -82,18 +47,20 @@ public class Event implements Parcelable
         out.writeString(lon);
     }
 
-    public static final Parcelable.Creator<Event> CREATOR
-            = new Parcelable.Creator<Event>() {
-        public Event createFromParcel(Parcel in){
+    public static final Parcelable.Creator<Event> CREATOR = new Parcelable.Creator<Event>()
+    {
+        public Event createFromParcel(Parcel in)
+        {
             return new Event(in);
-    }
+        }
 
-    public Event[] newArray(int size){
+        public Event[] newArray(int size){
             return new Event[size];
     }
-};
+    };
 
-    private Event(Parcel in) {
+    private Event(Parcel in)
+    {
         image = in.readString();
         title = in.readString();
         date = in.readString();
@@ -195,7 +162,8 @@ public class Event implements Parcelable
     public void setLon(String lon) { this.lat = lon;}
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         String _image = "image: " + this.image + '\n';
         String _title = "title: " + this.title + '\n';
         String _date = "date: " + this.date + '\n';

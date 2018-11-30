@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.example.jon.eventpro.models.Event;
 
@@ -49,6 +50,7 @@ public class CurlActivity extends AppCompatActivity {
             JSONObject jo = new JSONObject(result);
             JSONObject embedded = jo.getJSONObject("_embedded");
             JSONArray events = embedded.getJSONArray("events");
+
             for (int i = 0; i < events.length(); ++i)
             {
                 JSONObject temp = events.getJSONObject(i);
@@ -64,7 +66,21 @@ public class CurlActivity extends AppCompatActivity {
 
                 JSONArray venues = temp.getJSONObject("_embedded").getJSONArray("venues");
                 location = venues.getJSONObject(0).getString("name");
+
                 address = venues.getJSONObject(0).getJSONObject("address").getString("line1");
+                if(venues.getJSONObject(0).getJSONObject("address").has("line2"))
+                    address = address + ", " + venues.getJSONObject(0).getJSONObject("address").getString("line2");
+
+                //TODO: this gets the full address, but for some reason trying to access state breaks it
+//                else if(venues.getJSONObject(0).getJSONObject("city").has("name")
+//                        && venues.getJSONObject(0).getJSONObject("state").has("name")
+//                        && venues.getJSONObject(0).has("postalCode"))
+//                {
+//                    address = address + ", " + venues.getJSONObject(0).getJSONObject("city").getString("name")
+//                                    + ", " + venues.getJSONObject(0).getJSONObject("state").getString("name")
+//                                    + " " + venues.getJSONObject(0).getString("postalCode");
+//                }
+
                //System.out.println(location);
                 lat = venues.getJSONObject(0).getJSONObject("location").getString("latitude");
                 lon = venues.getJSONObject(0).getJSONObject("location").getString("longitude");
@@ -111,6 +127,7 @@ public class CurlActivity extends AppCompatActivity {
             bundle.putParcelableArrayList("Events", event_arr);
             intent.putExtras(bundle);
             startActivity(intent);
+
             finish();
         }
         catch (Exception e)
