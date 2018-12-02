@@ -3,7 +3,9 @@ package com.example.jon.eventpro.ui.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import android.widget.SearchView;
 
 import com.example.jon.eventpro.R;
 import com.example.jon.eventpro.models.Event;
+import com.example.jon.eventpro.ui.activities.CurlActivity;
 import com.example.jon.eventpro.ui.activities.EventActivity;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
@@ -25,6 +28,7 @@ public class SearchFragment extends Fragment
     private SearchView searchBar;
     private RecyclerView eventsList;
     private DatabaseReference eventsDatabase;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     public SearchFragment()
     {
@@ -44,6 +48,30 @@ public class SearchFragment extends Fragment
         //setting up recyclerView
         eventsList = view.findViewById(R.id.events_list);
         eventsList.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        //refreshing the recycler view on pull down
+        swipeRefreshLayout = view.findViewById(R.id.swipe_container);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener()
+        {
+            @Override
+            public void onRefresh()
+            {
+                //deleting all events from database
+                eventsDatabase.removeValue();
+
+                startActivity(new Intent(getActivity(), CurlActivity.class));
+
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                }, 6000);
+            }
+        });
 
         // Inflate the layout for this fragment
         return view;

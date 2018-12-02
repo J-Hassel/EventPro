@@ -3,11 +3,13 @@ package com.example.jon.eventpro.ui.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -46,6 +48,7 @@ public class HomeFragment extends Fragment
     private FirebaseAuth auth;
     private RecyclerView eventsList;
     private DatabaseReference eventsDatabase;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     private DrawerLayout drawerLayout;
 
@@ -91,6 +94,32 @@ public class HomeFragment extends Fragment
         //setting up recyclerView
         eventsList = view.findViewById(R.id.events_list);
         eventsList.setLayoutManager(new LinearLayoutManager(getContext()));
+
+
+        //refreshing the recycler view on pull down
+        swipeRefreshLayout = view.findViewById(R.id.swipe_container);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener()
+        {
+            @Override
+            public void onRefresh()
+            {
+                //deleting all events from database
+                eventsDatabase.removeValue();
+
+                startActivity(new Intent(getActivity(), CurlActivity.class));
+
+                //let the refresh symbol stay for 6 seconds
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                }, 6000);
+            }
+        });
 
         // Inflate the layout for this fragment
         return view;
@@ -259,10 +288,6 @@ public class HomeFragment extends Fragment
             case R.id.log_out:
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(getActivity(), LoginActivity.class));
-                break;
-
-            case R.id.refresh:
-                startActivity(new Intent(getActivity(), CurlActivity.class));
                 break;
         }
 
