@@ -83,6 +83,7 @@ public class SearchFragment extends Fragment
     public void onStart()
     {
         super.onStart();
+
         Query query = eventsDatabase.orderByChild("dateTime");
         FirebaseRecyclerAdapter<Event, HomeFragment.EventViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Event, HomeFragment.EventViewHolder>
                 (

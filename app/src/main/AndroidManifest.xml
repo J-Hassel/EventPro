@@ -36,8 +36,8 @@
         <activity android:name=".ui.activities.RegisterActivity" />
         <activity android:name=".ui.activities.AddFriendsActivity" />
         <activity android:name=".ui.activities.UserActivity" />
-        <activity android:name=".ui.activities.CurlActivity" android:theme="@style/noAnimTheme"/>
-        <activity android:name=".ui.activities.WriteToDatabaseActivity" android:theme="@style/noAnimTheme"/>
+        <activity android:name=".ui.activities.CurlActivity"/>
+        <activity android:name=".ui.activities.WriteToDatabaseActivity"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

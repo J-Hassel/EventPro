@@ -27,6 +27,7 @@ public class CurlActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         System.out.println("Start Curl activity");
+
         StrictMode.ThreadPolicy policy = new
                 StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -58,13 +59,17 @@ public class CurlActivity extends AppCompatActivity {
                 name = temp.getString("name");
                 //System.out.println(name);
                 JSONObject date = temp.getJSONObject("dates").getJSONObject("start");
-                date_time = date.getString("dateTime");
+
                 start_date = convertDateFormat(date.getString("localDate"));
-                //System.out.println(start_date);
-                if (date.has("localTime")) {
+                date_time = date.getString("localDate");
+                if(date.has("dateTime"))
+                    date_time = date.getString("dateTime");
+
+                start_time = "12:00 PM";
+                if (date.has("localTime"))
                     start_time = convertTime(date.getString("localTime"));
-                    //System.out.println(start_time);
-                }
+
+
 
                 JSONArray venues = temp.getJSONObject("_embedded").getJSONArray("venues");
 
@@ -84,6 +89,7 @@ public class CurlActivity extends AppCompatActivity {
                             + ", " + venues.getJSONObject(0).getJSONObject("state").getString("stateCode")
                             + " " + venues.getJSONObject(0).getString("postalCode");
                 }
+
 
 
                 lat = venues.getJSONObject(0).getJSONObject("location").getString("latitude");
