@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -70,28 +71,35 @@ public class EventActivity extends AppCompatActivity
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot)
             {
-                String eventImage = dataSnapshot.child("image").getValue().toString();
-                String eventTitle = dataSnapshot.child("title").getValue().toString();
-                String eventDate = dataSnapshot.child("date").getValue().toString();
-                String eventTime = dataSnapshot.child("time").getValue().toString();
-                String eventLocation = dataSnapshot.child("location").getValue().toString();
-                String eventAddress = dataSnapshot.child("address").getValue().toString();
-                String eventPrice = dataSnapshot.child("price").getValue().toString();
-                String eventAbout = dataSnapshot.child("about").getValue().toString();
-                String lat = dataSnapshot.child("lat").getValue().toString();
-                String lon = dataSnapshot.child("lon").getValue().toString();
+                try {
+                    String eventImage = dataSnapshot.child("image").getValue().toString();
+                    String eventTitle = dataSnapshot.child("title").getValue().toString();
+                    String eventDate = dataSnapshot.child("date").getValue().toString();
+                    String eventTime = dataSnapshot.child("time").getValue().toString();
+                    String eventLocation = dataSnapshot.child("location").getValue().toString();
+                    String eventAddress = dataSnapshot.child("address").getValue().toString();
+                    String eventPrice = dataSnapshot.child("price").getValue().toString();
+                    String eventAbout = dataSnapshot.child("about").getValue().toString();
+                    String lat = dataSnapshot.child("lat").getValue().toString();
+                    String lon = dataSnapshot.child("lon").getValue().toString();
 
 
 
-                Picasso.get().load(eventImage).placeholder(R.drawable.default_event_image).into(image);
-                title.setText(eventTitle);
-                date.setText(eventDate);
-                time.setText(eventTime);
-                location.setText(eventLocation);
-                address.setText(eventAddress);
-                price.setText(eventPrice);
-                about.setText(eventAbout);
-                address2.setText(lat + "," + lon);
+
+                    Picasso.get().load(eventImage).placeholder(R.drawable.default_event_image).into(image);
+                    title.setText(eventTitle);
+                    date.setText(eventDate);
+                    time.setText(eventTime);
+                    location.setText(eventLocation);
+                    address.setText(eventAddress);
+                    price.setText(eventPrice);
+                    about.setText(eventAbout);
+                    address2.setText(lat + "," + lon);
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
             }
 
             @Override

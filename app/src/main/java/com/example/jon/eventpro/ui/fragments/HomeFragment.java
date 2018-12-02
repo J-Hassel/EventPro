@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,10 +32,13 @@ import com.example.jon.eventpro.ui.activities.InformationActivity;
 import com.example.jon.eventpro.ui.activities.LoginActivity;
 import com.example.jon.eventpro.ui.activities.ProfileActivity;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
@@ -48,6 +52,7 @@ public class HomeFragment extends Fragment
     private FirebaseAuth auth;
     private RecyclerView eventsList;
     private DatabaseReference eventsDatabase;
+    private StorageReference eventImageStorage;
     private SwipeRefreshLayout swipeRefreshLayout;
 
     private DrawerLayout drawerLayout;
@@ -66,6 +71,7 @@ public class HomeFragment extends Fragment
         auth = FirebaseAuth.getInstance();
         eventsDatabase = FirebaseDatabase.getInstance().getReference().child("Events");
         eventsDatabase.keepSynced(true);    //for offline capabilities
+        eventImageStorage = FirebaseStorage.getInstance().getReference().child("event_images");
 
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
@@ -106,6 +112,7 @@ public class HomeFragment extends Fragment
                 //deleting all events from database
                 eventsDatabase.removeValue();
 
+
                 startActivity(new Intent(getActivity(), CurlActivity.class));
 
                 //let the refresh symbol stay for 6 seconds
@@ -117,7 +124,7 @@ public class HomeFragment extends Fragment
                     {
                         swipeRefreshLayout.setRefreshing(false);
                     }
-                }, 6000);
+                }, 10000);
             }
         });
 

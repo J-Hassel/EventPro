@@ -1,14 +1,13 @@
 package com.example.jon.eventpro.ui.activities;
 
 import android.content.Intent;
-import android.net.Uri;
+import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.jon.eventpro.models.Event;
-import com.example.jon.eventpro.ui.fragments.HomeFragment;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -45,14 +44,15 @@ public class CurlActivity extends AppCompatActivity {
             StringBuilder sb = new StringBuilder();
 
             String line;
-            while ((line = reader.readLine()) != null)
+            while((line = reader.readLine()) != null)
                 sb.append(line + "\n");
+
             result = sb.toString();
             JSONObject jo = new JSONObject(result);
             JSONObject embedded = jo.getJSONObject("_embedded");
             JSONArray events = embedded.getJSONArray("events");
 
-            for (int i = 0; i < events.length(); ++i)
+            for(int i = 0; i < events.length(); ++i)
             {
                 JSONObject temp = events.getJSONObject(i);
                 name = temp.getString("name");
@@ -73,14 +73,14 @@ public class CurlActivity extends AppCompatActivity {
                     address = address + ", " + venues.getJSONObject(0).getJSONObject("address").getString("line2");
 
                 //TODO: this gets the full address, but for some reason trying to access state breaks it
-//                else if(venues.getJSONObject(0).getJSONObject("city").has("name")
-//                        && venues.getJSONObject(0).getJSONObject("state").has("name")
-//                        && venues.getJSONObject(0).has("postalCode"))
-//                {
-//                    address = address + ", " + venues.getJSONObject(0).getJSONObject("city").getString("name")
-//                                    + ", " + venues.getJSONObject(0).getJSONObject("state").getString("name")
-//                                    + " " + venues.getJSONObject(0).getString("postalCode");
-//                }
+                else if(venues.getJSONObject(0).getJSONObject("city").has("name")
+                        && venues.getJSONObject(0).getJSONObject("state").has("name")
+                        && venues.getJSONObject(0).has("postalCode"))
+                {
+                    address = address + ", " + venues.getJSONObject(0).getJSONObject("city").getString("name")
+                                    + ", " + venues.getJSONObject(0).getJSONObject("state").getString("stateCode")
+                                    + " " + venues.getJSONObject(0).getString("postalCode");
+                }
 
                //System.out.println(location);
                 lat = venues.getJSONObject(0).getJSONObject("location").getString("latitude");
@@ -127,7 +127,11 @@ public class CurlActivity extends AppCompatActivity {
             Bundle bundle = new Bundle();
             bundle.putParcelableArrayList("Events", event_arr);
             intent.putExtras(bundle);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
+            overridePendingTransition(0, 0);
 
             finish();
         }

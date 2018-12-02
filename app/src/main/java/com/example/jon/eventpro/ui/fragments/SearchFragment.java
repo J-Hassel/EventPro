@@ -69,7 +69,7 @@ public class SearchFragment extends Fragment
                     {
                         swipeRefreshLayout.setRefreshing(false);
                     }
-                }, 6000);
+                }, 10000);
             }
         });
 
