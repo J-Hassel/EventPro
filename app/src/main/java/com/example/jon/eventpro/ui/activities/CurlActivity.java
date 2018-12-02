@@ -35,7 +35,7 @@ public class CurlActivity extends AppCompatActivity {
 
     private void getRequest (String str)
     {
-        String result, name, start_date, start_time, lat, lon, info, min_price, max_price, price_range, location, address;
+        String result, name, date_time, start_date, start_time, lat, lon, info, min_price, max_price, price_range, location, address;
         start_time = info = price_range = null;
         try {
             URL url = new URL(str);
@@ -58,6 +58,7 @@ public class CurlActivity extends AppCompatActivity {
                 name = temp.getString("name");
                 //System.out.println(name);
                 JSONObject date = temp.getJSONObject("dates").getJSONObject("start");
+                date_time = date.getString("dateTime");
                 start_date = convertDateFormat(date.getString("localDate"));
                 //System.out.println(start_date);
                 if (date.has("localTime")) {
@@ -66,41 +67,39 @@ public class CurlActivity extends AppCompatActivity {
                 }
 
                 JSONArray venues = temp.getJSONObject("_embedded").getJSONArray("venues");
+
+                if(!venues.getJSONObject(0).getJSONObject("country").getString("countryCode").equals("US"))
+                    continue;   //THIS WILL SKIP OVER NON-US EVENTS
+
                 location = venues.getJSONObject(0).getString("name");
 
                 address = venues.getJSONObject(0).getJSONObject("address").getString("line1");
-                if(venues.getJSONObject(0).getJSONObject("address").has("line2"))
+                if (venues.getJSONObject(0).getJSONObject("address").has("line2"))
                     address = address + ", " + venues.getJSONObject(0).getJSONObject("address").getString("line2");
-
-                //TODO: this gets the full address, but for some reason trying to access state breaks it
-                else if(venues.getJSONObject(0).getJSONObject("city").has("name")
+                else if (venues.getJSONObject(0).getJSONObject("city").has("name")
                         && venues.getJSONObject(0).getJSONObject("state").has("name")
                         && venues.getJSONObject(0).has("postalCode"))
                 {
                     address = address + ", " + venues.getJSONObject(0).getJSONObject("city").getString("name")
-                                    + ", " + venues.getJSONObject(0).getJSONObject("state").getString("stateCode")
-                                    + " " + venues.getJSONObject(0).getString("postalCode");
+                            + ", " + venues.getJSONObject(0).getJSONObject("state").getString("stateCode")
+                            + " " + venues.getJSONObject(0).getString("postalCode");
                 }
 
-               //System.out.println(location);
+
                 lat = venues.getJSONObject(0).getJSONObject("location").getString("latitude");
                 lon = venues.getJSONObject(0).getJSONObject("location").getString("longitude");
-                //System.out.println(lat);
-                //System.out.println(lon);
 
-                if (temp.has("info")) {
+                if (temp.has("info"))
                     info = temp.getString("info");
-                    //System.out.println(info);
-                }
                 else
                     info = "No description was provided.";
 
-                if (temp.has("priceRanges")) {
+                if (temp.has("priceRanges"))
+                {
                     JSONArray price = temp.getJSONArray("priceRanges");
                     min_price = Integer.toString(price.getJSONObject(0).getInt("min"));
                     max_price = Integer.toString(price.getJSONObject(0).getInt("max"));
                     price_range = min_price + '-' + max_price;
-                    //System.out.println(price_range);
                 }
                 else
                     price_range = "No price information was provided.";
@@ -119,9 +118,8 @@ public class CurlActivity extends AppCompatActivity {
                 String image_url = images.getJSONObject(index).getString("url");
 
                 String image  = image_url;
-                event_arr.add(new Event(image, name, start_date, start_time, location, address, lat, lon, price_range, info));
+                event_arr.add(new Event(image, name, date_time, start_date, start_time, location, address, lat, lon, price_range, info));
             }
-           // System.out.println(event_arr.size());
             System.out.println("Start write to database");
             Intent intent = new Intent(CurlActivity.this, WriteToDatabaseActivity.class);
             Bundle bundle = new Bundle();
@@ -147,11 +145,13 @@ public class CurlActivity extends AppCompatActivity {
         String new_format = "EEEE, MMMM d, yyyy";
 
         SimpleDateFormat sdf = new SimpleDateFormat(old_format);
-        try {
+        try
+        {
             Date d = sdf.parse(date);
             sdf.applyPattern(new_format);
             return sdf.format(d);
-        } catch (ParseException e)
+        }
+        catch (ParseException e)
         {
             e.printStackTrace();
         }
@@ -164,11 +164,13 @@ public class CurlActivity extends AppCompatActivity {
         String new_format = "hh:mm a";
 
         SimpleDateFormat sdf = new SimpleDateFormat(old_format);
-        try {
+        try
+        {
             Date d = sdf.parse(time);
             sdf.applyPattern(new_format);
             return sdf.format(d);
-        } catch (ParseException e)
+        }
+        catch (ParseException e)
         {
             e.printStackTrace();
         }

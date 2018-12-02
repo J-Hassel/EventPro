@@ -8,17 +8,18 @@ public class Event implements Parcelable
 
 
     private int imageID;
-    private String image, title, date, time, location, address, price, about, lat, lon;
+    private String image, title, dateTime, date, time, location, address, price, about, lat, lon;
 
     public Event()
     {
 
     }
 
-    public Event(String image, String title, String date, String time, String location, String address, String lat, String lon, String price, String about)
+    public Event(String image, String title, String dateTime, String date, String time, String location, String address, String lat, String lon, String price, String about)
     {
         this.image = image;
         this.title = title;
+        this.dateTime = dateTime;
         this.date = date;
         this.time = time;
         this.location = location;
@@ -37,6 +38,7 @@ public class Event implements Parcelable
     {
         out.writeString(image);
         out.writeString(title);
+        out.writeString(dateTime);
         out.writeString(date);
         out.writeString(time);
         out.writeString(location);
@@ -63,6 +65,7 @@ public class Event implements Parcelable
     {
         image = in.readString();
         title = in.readString();
+        dateTime = in.readString();
         date = in.readString();
         time = in.readString();
         location = in.readString();
@@ -91,6 +94,16 @@ public class Event implements Parcelable
     public void setTitle(String title)
     {
         this.title = title;
+    }
+
+    public String getDateTime()
+    {
+        return dateTime;
+    }
+
+    public void setDateTime(String dateTime)
+    {
+        this.dateTime = dateTime;
     }
 
     public String getDate()
@@ -166,6 +179,7 @@ public class Event implements Parcelable
     {
         String _image = "image: " + this.image + '\n';
         String _title = "title: " + this.title + '\n';
+        String _dateTime = "dateTime: " + this.dateTime + '\n';
         String _date = "date: " + this.date + '\n';
         String _location = "location: " + this.location + '\n';
         String _address = "address: " + this.address + '\n';
@@ -173,6 +187,7 @@ public class Event implements Parcelable
         String _about = "about: " + this.about + '\n';
         String _lat = "lat: " + this.lat + '\n';
         String _lon = "lon: " + this.lon + '\n';
-        return _image + _title + _date + _location + _address + _price + _about + _lat + _lon;
+        return _image + _title + _dateTime + _date + _location + _address + _price + _about + _lat + _lon;
     }
+
 }

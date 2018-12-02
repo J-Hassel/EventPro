@@ -24,6 +24,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -63,7 +64,7 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
     private ImageButton btnAddImage;
     private DatabaseReference eventDatabase;
     private StorageReference imageStorage;
-    private String pushID, imageDownloadUrl;
+    private String pushID, imageDownloadUrl, dateTime;
     private ProgressDialog uploadImageDialog;
 
 
@@ -139,6 +140,7 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
 
                     eventMap.put("image", image);
                     eventMap.put("title", title);
+                    eventMap.put("dateTime", dateTime);
                     eventMap.put("date", date);
                     eventMap.put("time", time);
                     eventMap.put("location", location);
@@ -345,6 +347,7 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
         selectedMinute = minute;
 
         etDateTime.setText(convertDate(selectedMonth, selectedDay, selectedYear) + " at " + convertTime(selectedHour, selectedMinute));
+        dateTime = convert2Digit(selectedYear) + "-" + convert2Digit(selectedMonth) + "-" + convert2Digit(selectedDay) + "T" + convert2Digit(selectedHour) + ":" + convert2Digit(selectedMinute) + ":00Z";
     }
 
     public String convertDate(int month, int day, int year)
@@ -385,5 +388,13 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
             middle = ":0";
 
         return Integer.toString(hour) + middle + Integer.toString(minute) + amPM;
+    }
+
+    public String convert2Digit(int num)
+    {
+        String temp = Integer.toString(num);
+        if(temp.length() == 1)
+            return "0" + temp;
+        return temp;
     }
 }

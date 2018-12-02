@@ -20,6 +20,7 @@ import com.example.jon.eventpro.ui.activities.EventActivity;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 
 public class SearchFragment extends Fragment
@@ -82,13 +83,13 @@ public class SearchFragment extends Fragment
     public void onStart()
     {
         super.onStart();
-
+        Query query = eventsDatabase.orderByChild("dateTime");
         FirebaseRecyclerAdapter<Event, HomeFragment.EventViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Event, HomeFragment.EventViewHolder>
                 (
                         Event.class,
                         R.layout.event_item,
                         HomeFragment.EventViewHolder.class,
-                        eventsDatabase
+                        query
                 )
         {
             @Override
