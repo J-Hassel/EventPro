@@ -23,10 +23,13 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,10 +44,12 @@ public class EventActivity extends AppCompatActivity
 {
     private ImageButton btnGoing;
 //    private boolean isGoing = false;//TODO: get isGoing from user
-    private TextView title, date, time, location, address, price, about, address2;
+    private TextView title, date, time, location, address, price, about, address2, lat, lon;
     private ImageView image;
     private DatabaseReference eventsDatabase;
     private String eventID;
+    private GoogleMap googleMap;
+    MapView mapView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -62,6 +67,9 @@ public class EventActivity extends AppCompatActivity
         price = findViewById(R.id.tv_price);
         about = findViewById(R.id.tv_about);
         address2 = findViewById(R.id.tv_address2);
+        lat = findViewById(R.id.tv_lat);
+        lon = findViewById(R.id.tv_lon);
+
 
 
         eventID = getIntent().getStringExtra("eventID");
@@ -80,8 +88,8 @@ public class EventActivity extends AppCompatActivity
                     String eventAddress = dataSnapshot.child("address").getValue().toString();
                     String eventPrice = dataSnapshot.child("price").getValue().toString();
                     String eventAbout = dataSnapshot.child("about").getValue().toString();
-                    String lat = dataSnapshot.child("lat").getValue().toString();
-                    String lon = dataSnapshot.child("lon").getValue().toString();
+                    String eventLat = dataSnapshot.child("lat").getValue().toString();
+                    String eventLon = dataSnapshot.child("lon").getValue().toString();
 
 
 
@@ -94,7 +102,9 @@ public class EventActivity extends AppCompatActivity
                     address.setText(eventAddress);
                     price.setText(eventPrice);
                     about.setText(eventAbout);
-                    address2.setText(lat + "," + lon);
+                    address2.setText(eventAddress);
+                    lat.setText(eventLat);
+                    lon.setText(eventLon);
                 }
                 catch (Exception e)
                 {
@@ -108,10 +118,6 @@ public class EventActivity extends AppCompatActivity
 
             }
         });
-
-
-
-
 
 
 
@@ -145,21 +151,76 @@ public class EventActivity extends AppCompatActivity
             }
         });
 
-//        GoogleMap googleMap = ((SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.map)).getMapAsync(MapFragment.this);
 
+        mapView = findViewById(R.id.map);
+        mapView.onCreate(savedInstanceState);
+        mapView.getMapAsync(new OnMapReadyCallback() {
 
-
-
-        FloatingActionButton btnDirections = findViewById(R.id.fab_directions);
-        btnDirections.setOnClickListener(new View.OnClickListener()
-        {
             @Override
-            public void onClick(View v)
-            {   //TODO: address
-                String uri = "http://maps.google.co.in/maps?q=" + address2.getText().toString();
-                EventActivity.this.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(uri)));
+            public void onMapReady(GoogleMap gMap) {
+
+                googleMap = gMap;
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(Float.parseFloat(lat.getText().toString()), Float.parseFloat(lon.getText().toString())), 14));  //move camera to location
+                if (googleMap != null)
+                    googleMap.addMarker(new MarkerOptions().position(new LatLng(Float.parseFloat(lat.getText().toString()), Float.parseFloat(lon.getText().toString()))));
+
+                // Making it so user cannot interact with the map
+                googleMap.getUiSettings().setAllGesturesEnabled(false);
             }
         });
+
+
+
+
+//
+//
+//
+//
+//        FloatingActionButton btnDirections = findViewById(R.id.fab_directions);
+//        btnDirections.setOnClickListener(new View.OnClickListener()
+//        {
+//            @Override
+//            public void onClick(View v)
+//            {
+//                String uri = "http://maps.google.co.in/maps?q=" + address2.getText().toString();
+//                EventActivity.this.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(uri)));
+//            }
+//        });
+    }
+
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+        mapView.onDestroy();
+    }
+
+    @Override
+    public void onLowMemory()
+    {
+        super.onLowMemory();
+        mapView.onLowMemory();
+    }
+
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+        mapView.onPause();
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState)
+    {
+        super.onSaveInstanceState(outState);
+        mapView.onSaveInstanceState(outState);
     }
 
 
