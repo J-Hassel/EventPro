@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.example.jon.eventpro.R;
@@ -16,6 +17,7 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -24,6 +26,7 @@ public class AddFriendsActivity extends AppCompatActivity
 {
     private RecyclerView usersList;
     private DatabaseReference usersDatabase;
+    private SearchView searchBar;
     String currentUid;
 
     @Override
@@ -32,16 +35,16 @@ public class AddFriendsActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_friends);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                onBackPressed();
-            }
-        });
+//        Toolbar toolbar = findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+//        toolbar.setNavigationOnClickListener(new View.OnClickListener()
+//        {
+//            @Override
+//            public void onClick(View view)
+//            {
+//                onBackPressed();
+//            }
+//        });
 
         usersDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
         usersDatabase.keepSynced(true);     //for offline capabilities
@@ -50,19 +53,37 @@ public class AddFriendsActivity extends AppCompatActivity
 
         usersList = findViewById(R.id.users_list);
         usersList.setLayoutManager(new LinearLayoutManager(this));
+
+        searchBar = findViewById(R.id.search_bar);
+        searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            @Override
+            public boolean onQueryTextChange(String newText)
+            {
+                firebaseSearch();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextSubmit(String query)
+            {
+                firebaseSearch();
+                return false;
+            }
+
+        });
+        firebaseSearch();
     }
 
-    @Override
-    protected void onStart()
+    public void firebaseSearch()
     {
-        super.onStart();
-
+        Query query = usersDatabase.orderByChild("name").startAt(searchBar.getQuery().toString()).endAt(searchBar.getQuery().toString() + "\uf8ff");
         FirebaseRecyclerAdapter<User, UserViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<User, UserViewHolder>
                 (
                         User.class,
                         R.layout.user_item,
                         UserViewHolder.class,
-                        usersDatabase
+                        query
                 )
         {
             @Override

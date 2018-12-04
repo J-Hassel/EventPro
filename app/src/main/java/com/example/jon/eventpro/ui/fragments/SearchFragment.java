@@ -65,20 +65,19 @@ public class SearchFragment extends Fragment
             @Override
             public boolean onQueryTextChange(String newText)
             {
-                fireBaseSearch();
+                firebaseSearch();
                 return false;
             }
 
             @Override
             public boolean onQueryTextSubmit(String query)
             {
-                fireBaseSearch();
+                firebaseSearch();
                 return false;
             }
 
         });
-
-
+//        firebaseSearch();
 
         //refreshing the recycler view on pull down
         swipeRefreshLayout = view.findViewById(R.id.swipe_container);
@@ -99,6 +98,7 @@ public class SearchFragment extends Fragment
                     public void run()
                     {
                         swipeRefreshLayout.setRefreshing(false);
+                        eventsList.smoothScrollToPosition(0);
                     }
                 }, 10000);
             }
@@ -108,10 +108,8 @@ public class SearchFragment extends Fragment
         return view;
     }
 
-    public void fireBaseSearch()
+    public void firebaseSearch()
     {
-        //Toast.makeText(SearchFragment.this, "Searching", Toast.LENGTH_LONG).show();
-
         Query query = eventsDatabase.orderByChild("title").startAt(searchBar.getQuery().toString()).endAt(searchBar.getQuery().toString() + "\uf8ff");
         FirebaseRecyclerAdapter<Event, HomeFragment.EventViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Event, HomeFragment.EventViewHolder>
                 (
@@ -130,9 +128,11 @@ public class SearchFragment extends Fragment
 
                 final String eventID = getRef(position).getKey();
 
-                viewHolder.view.setOnClickListener(new View.OnClickListener() {
+                viewHolder.view.setOnClickListener(new View.OnClickListener()
+                {
                     @Override
-                    public void onClick(View v) {   //passing eventID to EventActivity to reference it
+                    public void onClick(View v)
+                    {   //passing eventID to EventActivity to reference it
                         Intent eventIntent = new Intent(getActivity(), EventActivity.class);
                         eventIntent.putExtra("eventID", eventID);
                         startActivity(eventIntent);
@@ -142,8 +142,6 @@ public class SearchFragment extends Fragment
         };
         eventsList.setAdapter(firebaseRecyclerAdapter);
     }
-
-
     //EventViewHolder class is in HomeFragment
 
 }

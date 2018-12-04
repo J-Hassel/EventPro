@@ -124,6 +124,8 @@ public class HomeFragment extends Fragment
                     public void run()
                     {
                         swipeRefreshLayout.setRefreshing(false);
+                        eventsList.smoothScrollToPosition(0);
+
                     }
                 }, 10000);
             }

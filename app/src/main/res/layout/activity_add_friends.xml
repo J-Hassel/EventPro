@@ -7,17 +7,15 @@
     android:orientation="vertical"
     tools:context=".ui.activities.AddFriendsActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbarHeight"
-        android:background="@color/colorPrimary"
-        android:minHeight="@dimen/toolbarHeight"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:navigationIcon="@drawable/ic_arrow_back"
-        app:popupTheme="@style/Base.ThemeOverlay.AppCompat.Light"
-        app:title="Add Friends"
-        app:titleTextColor="@color/white" />
+    <SearchView
+    android:id="@+id/search_bar"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/toolbarHeight"
+    android:background="@color/colorPrimary"
+    android:iconifiedByDefault="false"
+    android:queryBackground="@android:color/transparent"
+    android:queryHint="@android:string/search_go"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/users_list"

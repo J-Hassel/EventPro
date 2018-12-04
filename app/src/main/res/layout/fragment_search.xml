@@ -16,7 +16,7 @@
         <SearchView
             android:id="@+id/search_bar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/toolbarHeight"
             android:background="@color/colorPrimary"
             android:iconifiedByDefault="false"
             android:queryBackground="@android:color/transparent"
