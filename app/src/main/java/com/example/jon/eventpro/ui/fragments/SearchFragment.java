@@ -11,7 +11,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.example.jon.eventpro.R;
 import com.example.jon.eventpro.models.Event;
@@ -30,6 +32,7 @@ public class SearchFragment extends Fragment
     private RecyclerView eventsList;
     private DatabaseReference eventsDatabase;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private Button submitButton;
 
     public SearchFragment()
     {
@@ -40,6 +43,7 @@ public class SearchFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
+        submitButton = view.findViewById(R.id.SearchBTN);
 
         searchBar = view.findViewById(R.id.search_bar);
 
@@ -50,6 +54,15 @@ public class SearchFragment extends Fragment
         eventsList = view.findViewById(R.id.events_list);
         eventsList.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fireBaseSearch();
+            }
+        });
+
+
+        /*
         //refreshing the recycler view on pull down
         swipeRefreshLayout = view.findViewById(R.id.swipe_container);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener()
@@ -73,29 +86,25 @@ public class SearchFragment extends Fragment
                 }, 10000);
             }
         });
-
+        */
         // Inflate the layout for this fragment
         return view;
     }
 
-
-    @Override
-    public void onStart()
+    public void fireBaseSearch()
     {
-        super.onStart();
+        //Toast.makeText(SearchFragment.this, "Searching", Toast.LENGTH_LONG).show();
 
-        Query query = eventsDatabase.orderByChild("dateTime");
+        Query query = eventsDatabase.orderByChild("title").startAt(searchBar.getQuery().toString()).endAt(searchBar.getQuery().toString() + "\uf8ff");
         FirebaseRecyclerAdapter<Event, HomeFragment.EventViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Event, HomeFragment.EventViewHolder>
                 (
                         Event.class,
                         R.layout.event_item,
                         HomeFragment.EventViewHolder.class,
                         query
-                )
-        {
+                ) {
             @Override
-            protected void populateViewHolder(HomeFragment.EventViewHolder viewHolder, Event model, int position)
-            {
+            protected void populateViewHolder(HomeFragment.EventViewHolder viewHolder, Event model, int position) {
 
                 viewHolder.setImage(model.getImage());
                 viewHolder.setTitle(model.getTitle());
@@ -104,11 +113,9 @@ public class SearchFragment extends Fragment
 
                 final String eventID = getRef(position).getKey();
 
-                viewHolder.view.setOnClickListener(new View.OnClickListener()
-                {
+                viewHolder.view.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View v)
-                    {   //passing eventID to EventActivity to reference it
+                    public void onClick(View v) {   //passing eventID to EventActivity to reference it
                         Intent eventIntent = new Intent(getActivity(), EventActivity.class);
                         eventIntent.putExtra("eventID", eventID);
                         startActivity(eventIntent);
@@ -116,8 +123,10 @@ public class SearchFragment extends Fragment
                 });
             }
         };
-
         eventsList.setAdapter(firebaseRecyclerAdapter);
     }
-        //EventViewHolder class is in HomeFragment
+
+
+    //EventViewHolder class is in HomeFragment
+
 }
