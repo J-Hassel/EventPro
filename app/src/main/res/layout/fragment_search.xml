@@ -23,14 +23,6 @@
             android:queryHint="@android:string/search_go"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-        <Button
-            android:id="@+id/SearchBTN"
-            style="@style/FirebaseUI.Button.AccountChooser"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Search"
-            android:textAlignment="center" />
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/events_list"
             android:layout_width="match_parent"

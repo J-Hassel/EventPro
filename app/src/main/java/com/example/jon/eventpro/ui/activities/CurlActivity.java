@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.example.jon.eventpro.models.Event;
 
@@ -57,18 +55,18 @@ public class CurlActivity extends AppCompatActivity {
             {
                 JSONObject temp = events.getJSONObject(i);
                 name = temp.getString("name");
-                //System.out.println(name);
+
                 JSONObject date = temp.getJSONObject("dates").getJSONObject("start");
 
                 start_date = convertDateFormat(date.getString("localDate"));
-                date_time = date.getString("localDate");
-                if(date.has("dateTime"))
-                    date_time = date.getString("dateTime");
 
-                start_time = "12:00 PM";
+                start_time = convertTime("12:00:00");
                 if (date.has("localTime"))
                     start_time = convertTime(date.getString("localTime"));
 
+                date_time = date.getString("localDate");
+                if(date.has("dateTime"))
+                    date_time = date.getString("dateTime");
 
 
                 JSONArray venues = temp.getJSONObject("_embedded").getJSONArray("venues");
