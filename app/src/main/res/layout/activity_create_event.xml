@@ -100,7 +100,8 @@
                 android:focusable="false"
                 android:inputType="none"
                 android:maxLines="1"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="14sp" />
 
             <View
                 android:layout_width="match_parent"

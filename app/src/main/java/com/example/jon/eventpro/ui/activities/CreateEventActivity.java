@@ -60,7 +60,7 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
 
     private int day, month, year, hour, minute;
     private int selectedDay, selectedMonth, selectedYear, selectedHour, selectedMinute;
-    private EditText etTitle, etDateTime, etLocation, etAddress, etCost, etAbout;
+    private EditText etTitle, etDateTime, etLocation, etAddress, etPrice, etAbout;
     private ImageButton btnAddImage;
     private DatabaseReference eventDatabase;
     private StorageReference imageStorage;
@@ -89,7 +89,7 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
         etDateTime = findViewById(R.id.et_date);
         etLocation = findViewById(R.id.et_location);
         etAddress = findViewById(R.id.et_address);
-        etCost = findViewById(R.id.et_cost);
+        etPrice = findViewById(R.id.et_cost);
         etAbout = findViewById(R.id.et_about);
 
         //getting the current date and time
@@ -129,7 +129,7 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
                 time = getTime(etDateTime.getText().toString());
                 location = etLocation.getText().toString();
                 address = etAddress.getText().toString();
-                cost = etCost.getText().toString();
+                cost = etPrice.getText().toString();
                 about = etAbout.getText().toString();
 
                 if(title.isEmpty() || date.isEmpty() || time.isEmpty() || location.isEmpty() || address.isEmpty() || cost.isEmpty() || about.isEmpty())
@@ -145,7 +145,7 @@ public class CreateEventActivity extends AppCompatActivity implements DatePicker
                     eventMap.put("time", time);
                     eventMap.put("location", location);
                     eventMap.put("address", address);
-                    eventMap.put("cost", cost);
+                    eventMap.put("price", cost);
                     eventMap.put("about", about);
 
                     eventDatabase.child(pushID).setValue(eventMap).addOnCompleteListener(new OnCompleteListener<Void>()

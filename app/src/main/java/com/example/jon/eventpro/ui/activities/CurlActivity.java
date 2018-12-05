@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.example.jon.eventpro.models.Event;
 
@@ -16,6 +17,7 @@ import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class CurlActivity extends AppCompatActivity {
@@ -26,15 +28,63 @@ public class CurlActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         System.out.println("Start Curl activity");
 
-        StrictMode.ThreadPolicy policy = new
-                StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        getRequest("https://app.ticketmaster.com/discovery/v2/events.json?apikey=6xvARjg2m6rNWKqYIk9v5h7M3VAZXp8s");
+
+        String currentDate = Calendar.getInstance().getTime().toString();
+        String startDate = currentDate.split(" ")[5] + '-' + convertMonth(currentDate.split(" ")[1]) + '-' + currentDate.split(" ")[2] + 'T' + currentDate.split(" ")[3] + 'Z';
+        String endDate = addMonth(startDate);
+        String request = "https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US&startDateTime=" + startDate + "&endDateTime=" + endDate + "&apikey=6xvARjg2m6rNWKqYIk9v5h7M3VAZXp8s";
+        getRequest(request);
+        Log.d("request_string", request);
+    }
+
+    private String convertMonth(String s)
+    {
+        switch(s)
+        {
+            case "Jan": return "01";
+            case "Feb": return "02";
+            case "Mar": return "03";
+            case "Apr": return "04";
+            case "May": return "05";
+            case "Jun": return "06";
+            case "Jul": return "07";
+            case "Aug": return "08";
+            case "Sep": return "09";
+            case "Oct": return "10";
+            case "Nov": return "11";
+            case "Dec": return "12";
+        }
+        return "01";
+    }
+
+    private String addMonth(String startDate)
+    {
+        String newDate;
+        int year = Integer.parseInt(startDate.split("-")[0]);
+        int month = Integer.parseInt(startDate.split("-")[1]);
+        int day = Integer.parseInt(startDate.split("-")[2].split("T")[0]);
+
+        if(month == 12)
+            newDate = Integer.toString(year + 1) + "-01-" + convert2Digit((day + 28) % 31) + 'T' + startDate.split("T")[1];
+        else
+            newDate = Integer.toString(year) + '-' + convert2Digit(month + 1) + '-' + convert2Digit((day + 28) % 31) + 'T' + startDate.split("T")[1];
+
+        return newDate;
+    }
+
+    public String convert2Digit(int num)
+    {
+        String temp = Integer.toString(num);
+        if(temp.length() == 1)
+            return "0" + temp;
+        return temp;
     }
 
     private void getRequest (String str)
     {
-        String result, name, date_time, start_date, start_time, lat, lon, info, min_price, max_price, price_range, location, address;
+        String result, name, date_time, start_date, start_time, lat, lon, info, min_price, max_price, price_range, location, address, website;
         start_time = info = price_range = null;
         try {
             URL url = new URL(str);
@@ -56,6 +106,8 @@ public class CurlActivity extends AppCompatActivity {
                 JSONObject temp = events.getJSONObject(i);
                 name = temp.getString("name");
 
+                website = temp.getString("url");
+
                 JSONObject date = temp.getJSONObject("dates").getJSONObject("start");
 
                 start_date = convertDateFormat(date.getString("localDate"));
@@ -70,9 +122,6 @@ public class CurlActivity extends AppCompatActivity {
 
 
                 JSONArray venues = temp.getJSONObject("_embedded").getJSONArray("venues");
-
-                if(!venues.getJSONObject(0).getJSONObject("country").getString("countryCode").equals("US"))
-                    continue;   //THIS WILL SKIP OVER NON-US EVENTS
 
                 location = venues.getJSONObject(0).getString("name");
 
@@ -122,7 +171,7 @@ public class CurlActivity extends AppCompatActivity {
                 String image_url = images.getJSONObject(index).getString("url");
 
                 String image  = image_url;
-                event_arr.add(new Event(image, name, date_time, start_date, start_time, location, address, lat, lon, price_range, info));
+                event_arr.add(new Event(image, name, date_time, start_date, start_time, location, address, lat, lon, price_range, info, website));
             }
             System.out.println("Start write to database");
             Intent intent = new Intent(CurlActivity.this, WriteToDatabaseActivity.class);

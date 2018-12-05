@@ -100,7 +100,7 @@ public class SearchFragment extends Fragment
                         swipeRefreshLayout.setRefreshing(false);
                         eventsList.smoothScrollToPosition(0);
                     }
-                }, 10000);
+                }, 12000);
             }
         });
 

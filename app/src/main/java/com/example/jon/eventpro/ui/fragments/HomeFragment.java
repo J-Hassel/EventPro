@@ -127,7 +127,7 @@ public class HomeFragment extends Fragment
                         eventsList.smoothScrollToPosition(0);
 
                     }
-                }, 10000);
+                }, 12000);
             }
         });
 

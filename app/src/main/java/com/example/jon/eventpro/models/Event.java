@@ -5,17 +5,14 @@ import android.os.Parcelable;
 
 public class Event implements Parcelable
 {
-
-
-    private int imageID;
-    private String image, title, dateTime, date, time, location, address, price, about, lat, lon;
+    private String image, title, dateTime, date, time, location, address, price, about, lat, lon, website;
 
     public Event()
     {
 
     }
 
-    public Event(String image, String title, String dateTime, String date, String time, String location, String address, String lat, String lon, String price, String about)
+    public Event(String image, String title, String dateTime, String date, String time, String location, String address, String lat, String lon, String price, String about, String website)
     {
         this.image = image;
         this.title = title;
@@ -28,6 +25,7 @@ public class Event implements Parcelable
         this.lon = lon;
         this.price = price;
         this.about = about;
+        this.website = website;
     }
 
     public int describeContents() {
@@ -47,6 +45,7 @@ public class Event implements Parcelable
         out.writeString(about);
         out.writeString(lat);
         out.writeString(lon);
+        out.writeString(website);
     }
 
     public static final Parcelable.Creator<Event> CREATOR = new Parcelable.Creator<Event>()
@@ -74,6 +73,7 @@ public class Event implements Parcelable
         about = in.readString();
         lat = in.readString();
         lon = in.readString();
+        website = in.readString();
     }
 
     public String getImage()
@@ -174,6 +174,16 @@ public class Event implements Parcelable
 
     public void setLon(String lon) { this.lat = lon;}
 
+    public String getWebsite()
+    {
+        return website;
+    }
+
+    public void setWebsite(String website)
+    {
+        this.website = website;
+    }
+
     @Override
     public String toString()
     {
@@ -187,7 +197,8 @@ public class Event implements Parcelable
         String _about = "about: " + this.about + '\n';
         String _lat = "lat: " + this.lat + '\n';
         String _lon = "lon: " + this.lon + '\n';
-        return _image + _title + _dateTime + _date + _location + _address + _price + _about + _lat + _lon;
+        String _website = "website: " + this.website + '\n';
+        return _image + _title + _dateTime + _date + _location + _address + _price + _about + _lat + _lon + _website;
     }
 
 }

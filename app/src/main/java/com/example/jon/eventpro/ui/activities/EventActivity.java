@@ -38,13 +38,14 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.List;
 
 public class EventActivity extends AppCompatActivity
 {
     private ImageButton btnGoing;
 //    private boolean isGoing = false;//TODO: get isGoing from user
-    private TextView title, date, time, location, address, price, about, address2, lat, lon;
+    private TextView title, date, time, location, address, price, about, address2, website;
     private ImageView image;
     private DatabaseReference eventsDatabase;
     private String eventID;
@@ -67,17 +68,14 @@ public class EventActivity extends AppCompatActivity
         price = findViewById(R.id.tv_price);
         about = findViewById(R.id.tv_about);
         address2 = findViewById(R.id.tv_address2);
-        lat = findViewById(R.id.tv_lat);
-        lon = findViewById(R.id.tv_lon);
-
-
+        website = findViewById(R.id.tv_website);
 
         eventID = getIntent().getStringExtra("eventID");
         eventsDatabase = FirebaseDatabase.getInstance().getReference().child("Events").child(eventID);
         eventsDatabase.addValueEventListener(new ValueEventListener()
         {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+            public void onDataChange(@NonNull final DataSnapshot dataSnapshot)
             {
                 try {
                     String eventImage = dataSnapshot.child("image").getValue().toString();
@@ -88,10 +86,6 @@ public class EventActivity extends AppCompatActivity
                     String eventAddress = dataSnapshot.child("address").getValue().toString();
                     String eventPrice = dataSnapshot.child("price").getValue().toString();
                     String eventAbout = dataSnapshot.child("about").getValue().toString();
-                    String eventLat = dataSnapshot.child("lat").getValue().toString();
-                    String eventLon = dataSnapshot.child("lon").getValue().toString();
-
-
 
 
                     Picasso.get().load(eventImage).placeholder(R.drawable.default_event_image).into(image);
@@ -103,12 +97,26 @@ public class EventActivity extends AppCompatActivity
                     price.setText(eventPrice);
                     about.setText(eventAbout);
                     address2.setText(eventAddress);
-                    lat.setText(eventLat);
-                    lon.setText(eventLon);
+
+                    if(dataSnapshot.child("website").exists())
+                    {
+                        website.setOnClickListener(new View.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(View v)
+                            {
+                                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(dataSnapshot.child("website").getValue().toString()));
+                                startActivity(browserIntent);
+                            }
+                        });
+                    }
+                    else
+                        website.setVisibility(View.GONE);
+
                 }
-                catch (Exception e)
+                catch(Exception e)
                 {
-                    e.printStackTrace();
+                    Toast.makeText(EventActivity.this, "An error occurred. Unable to load event data.", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -158,35 +166,35 @@ public class EventActivity extends AppCompatActivity
 
             @Override
             public void onMapReady(GoogleMap gMap) {
-
-                googleMap = gMap;
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(Float.parseFloat(lat.getText().toString()), Float.parseFloat(lon.getText().toString())), 14));  //move camera to location
-                if (googleMap != null)
-                    googleMap.addMarker(new MarkerOptions().position(new LatLng(Float.parseFloat(lat.getText().toString()), Float.parseFloat(lon.getText().toString()))));
-
+                try {
+                    googleMap = gMap;
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(getLocationFromAddress(getApplicationContext(), address.getText().toString()), 14));  //move camera to location
+                    if (googleMap != null)
+                        googleMap.addMarker(new MarkerOptions().position(getLocationFromAddress(getApplicationContext(), address.getText().toString())));
+                }
+                catch(Exception e)
+                {
+                    Toast.makeText(EventActivity.this, "Unable to load map, invalid address.", Toast.LENGTH_SHORT).show();
+                }
                 // Making it so user cannot interact with the map
                 googleMap.getUiSettings().setAllGesturesEnabled(false);
+
             }
         });
 
 
-
-
-//
-//
-//
-//
-//        FloatingActionButton btnDirections = findViewById(R.id.fab_directions);
-//        btnDirections.setOnClickListener(new View.OnClickListener()
-//        {
-//            @Override
-//            public void onClick(View v)
-//            {
-//                String uri = "http://maps.google.co.in/maps?q=" + address2.getText().toString();
-//                EventActivity.this.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(uri)));
-//            }
-//        });
+        FloatingActionButton btnDirections = findViewById(R.id.fab_directions);
+        btnDirections.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                String uri = "http://maps.google.co.in/maps?q=" + address2.getText().toString();
+                EventActivity.this.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(uri)));
+            }
+        });
     }
+
 
     @Override
     protected void onDestroy()
@@ -223,5 +231,26 @@ public class EventActivity extends AppCompatActivity
         mapView.onSaveInstanceState(outState);
     }
 
+    /* Reference: https://stackoverflow.com/questions/3574644/how-can-i-find-the-latitude-and-longitude-from-address */
+    public LatLng getLocationFromAddress(Context context, String strAddress) {
+        Geocoder coder = new Geocoder(context);
+        List<Address> address;
+        LatLng point = null;
+        try
+        {
+            // May throw an IOException
+            address = coder.getFromLocationName(strAddress, 5);
+            if (address == null)
+                return null;
 
+            Address location = address.get(0);
+
+            point = new LatLng(location.getLatitude(), location.getLongitude() );
+        }
+        catch(IOException ex)
+        {
+            ex.printStackTrace();
+        }
+        return point;
+    }
 }

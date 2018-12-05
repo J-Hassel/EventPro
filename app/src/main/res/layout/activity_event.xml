@@ -120,6 +120,20 @@
                 android:textColor="@color/black"
                 android:textSize="20sp" />
 
+            <TextView
+                android:id="@+id/tv_website"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="35dp"
+                android:layout_marginRight="20dp"
+                android:clickable="true"
+                android:drawableStart="@drawable/ic_website"
+                android:drawablePadding="20dp"
+                android:text="Get tickets online!"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -175,18 +189,6 @@
                 android:layout_marginRight="20dp"/>
 
 
-            <TextView
-                android:id="@+id/tv_lat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/tv_lon"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />
-
             <FrameLayout
                 android:id="@+id/fv_map"
                 android:layout_width="match_parent"
@@ -199,6 +201,17 @@
                     android:id="@+id/map"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/fab_directions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|right"
+                    android:layout_margin="10dp"
+                    android:clickable="true"
+                    android:src="@drawable/ic_directions"
+                    app:backgroundTint="@color/googleBlue"
+                    app:fabCustomSize="40dp" />
             </FrameLayout>
 
         </LinearLayout>
