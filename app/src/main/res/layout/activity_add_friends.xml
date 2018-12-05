@@ -5,17 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:focusableInTouchMode="true"
     tools:context=".ui.activities.AddFriendsActivity">
 
     <SearchView
-    android:id="@+id/search_bar"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/toolbarHeight"
-    android:background="@color/colorPrimary"
-    android:iconifiedByDefault="false"
-    android:queryBackground="@android:color/transparent"
-    android:queryHint="@android:string/search_go"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+        android:id="@+id/search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbarHeight"
+        android:background="@color/colorPrimary"
+        android:iconifiedByDefault="false"
+        android:inputType="textCapWords|textPersonName"
+        android:queryBackground="@android:color/transparent"
+        android:queryHint="@android:string/search_go"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/users_list"
